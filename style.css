@@ -1,0 +1,146 @@
+/* ===== RESET & BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f2f2f2; }
+
+/* ===== MICROSOFT SUPPORT BACKGROUND ===== */
+.ms-top-bar {
+    background: #ffffff; padding: 0 24px; display: flex; justify-content: space-between; align-items: center;
+    height: 54px; border-bottom: 1px solid #e1e1e1;
+}
+.ms-left, .ms-right { display: flex; align-items: center; gap: 20px; }
+.ms-logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; color: #737373; text-decoration: none; }
+.ms-logo svg { width: 20px; height: 20px; }
+.ms-logo span { color: #0078d4; }
+.ms-support-text { color: #333; font-weight: 500; font-size: 14px; }
+.ms-nav a { color: #616161; text-decoration: none; font-size: 13px; font-weight: 500; padding: 4px 8px; }
+.ms-nav a:hover { text-decoration: underline; }
+.ms-buy-btn { border: 1px solid #ccc; padding: 5px 12px; border-radius: 4px; color: #0078d4 !important; }
+.ms-buy-btn:hover { background: #f0f0f0; text-decoration: none !important; }
+.ms-all { color: #555; font-size: 13px; text-decoration: none; }
+.user-icon { color: #555; font-size: 20px; }
+.ms-right i { color: #555; }
+
+.ms-main-wrap { display: flex; height: calc(100vh - 54px); }
+
+/* Sidebar */
+.ms-sidebar { width: 240px; background: #f3f2f1; padding: 20px; border-right: 1px solid #e1e1e1; display: flex; flex-direction: column; }
+.ms-sidebar-img {
+    height: 180px; margin-bottom: 20px; border-radius: 4px;
+    background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80');
+    background-size: cover; background-position: center; position: relative;
+}
+.ms-get-started { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: #0078d4; color: white; padding: 8px 16px; border-radius: 4px; border: none; font-weight: 600; font-size: 13px; cursor: pointer; }
+.ms-sidebar h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.ms-sidebar p { font-size: 12px; color: #666; margin: 5px 0 15px 0; }
+.ms-sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; color: #333; font-size: 13px; }
+.ms-sidebar-item i { font-size: 20px; width: 24px; text-align: center; color: #0078d4; }
+.ms-sidebar-item:nth-child(5) i { color: #d83b01; } /* Access icon color */
+.ms-sidebar-item:last-child i { color: #6264a7; } /* Teams icon color */
+
+/* Content Area */
+.ms-content-wrapper { display: flex; flex-direction: column; flex: 1; }
+.ms-content { padding: 30px 40px; flex: 1; }
+.ms-content h2 { font-size: 26px; font-weight: 300; color: #1a1a1a; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.ms-content h2 i { color: #0078d4; }
+
+.ms-content-window { background: white; border: 1px solid #d2d2d2; border-radius: 4px; padding-bottom: 60px; position: relative; }
+.ms-content-winhead { background: #003862; color: white; padding: 8px 16px; font-weight: 600; font-size: 14px; border-radius: 4px 4px 0 0; }
+.ms-content-winbody { padding: 20px; color: #333; display: flex; align-items: flex-start; gap: 20px; }
+.content-shield { color: #0078d4; font-size: 40px; }
+.scan-text { font-size: 14px; line-height: 1.5; margin-bottom: 15px; }
+
+.fake-bottom-bar {
+    background: #0e4b8e; color: white; padding: 12px 20px; border-radius: 4px;
+    display: inline-block; width: 100%;
+}
+.fake-bottom-bar span { font-size: 14px; font-weight: 400; }
+
+/* Bottom Global Bar (Matching image) */
+.ms-bottom-bar {
+    background: #0e4b8e; color: white; padding: 12px 30px; display: flex; align-items: center; font-size: 15px;
+    width: 100%; margin-top: auto;
+}
+.ms-bottom-bar i { margin-right: 10px; font-size: 20px; }
+.ms-bottom-bar span { font-weight: 700; margin-left: 8px; }
+
+/* ===== TRIGGER SCREEN ===== */
+#start-trigger {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9998; background: rgba(0,0,0,0.3); cursor: pointer;
+}
+.trigger-box { background: white; padding: 30px 40px; border-radius: 8px; text-align: center; border: 2px solid #0078d4; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+.trigger-box i { color: #e81123; font-size: 40px; margin-bottom: 10px; }
+
+/* ===== PRANK OVERLAY ===== */
+#prank-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    display: none; justify-content: center; align-items: center;
+    z-index: 99999; background: rgba(0,0,0,0.15); pointer-events: auto !important;
+}
+
+.security-modal {
+    width: 620px; background: #ffffff; border-radius: 4px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+    display: flex; flex-direction: column; pointer-events: auto !important;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, 
+               pulse 3s ease-in-out 0.4s infinite;
+}
+@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+
+/* Modal Header */
+.modal-head { background: #ffffff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e1e1e1; }
+.modal-title { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 600; color: #1a1a1a; }
+.modal-title i { font-size: 24px; color: #0078d4; }
+.modal-controls i { color: #555; margin-left: 12px; font-size: 14px; cursor: default; }
+
+/* Modal Body */
+.modal-body { padding: 20px 40px 10px 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.modal-body h3 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; }
+.modal-body p { font-size: 14px; color: #333; line-height: 1.5; max-width: 480px; margin-bottom: 15px; }
+
+.center-icons { margin: 10px 0 15px 0; display: flex; gap: 20px; font-size: 32px; }
+.center-icons span { padding: 8px 12px; border-radius: 4px; }
+.center-icons span:nth-child(1) { background: #fff7e6; color: #f2c811; }
+.center-icons span:nth-child(2) { background: #e6f7ff; color: #0078d4; }
+.center-icons span:nth-child(3) { background: #e6f7ff; color: #0078d4; }
+
+.phone-label { font-size: 15px; font-weight: 700; color: #1a1a1a; margin: 5px 0 5px 0; }
+.phone-number {
+    font-size: 22px; font-weight: 700; color: #0078d4;
+    background: #eef7fc; padding: 8px 24px; border-radius: 30px;
+    display: inline-flex; align-items: center; gap: 12px; margin-bottom: 10px;
+}
+.phone-number i { color: #0078d4; font-size: 20px; }
+
+/* Modal Actions */
+.modal-actions { display: flex; justify-content: flex-end; align-items: center; gap: 15px; padding: 10px 40px 25px 40px; border-top: 1px solid #f0f0f0; margin-top: 10px; }
+.btn-wrap { display: flex; align-items: center; gap: 10px; margin-right: auto; color: #333; font-size: 13px; font-weight: 600; }
+.btn-wrap i { font-size: 22px; color: #0078d4; }
+
+.modal-actions button { padding: 10px 32px; border-radius: 2px; font-size: 14px; font-weight: 600; border: none; cursor: pointer; }
+.btn-allow { background: #e81123; color: white; border: 1px solid #c70f1e; }
+.btn-allow:hover { background: #c70f1e; }
+.btn-deny { background: white; color: #1a1a1a; border: 1px solid #1a1a1a; }
+.btn-deny:hover { background: #f0f0f0; }
+
+/* Modal Footer */
+.modal-footer {
+    background: #0e4b8e; color: white; padding: 12px 20px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 14px;
+}
+.footer-left { display: flex; align-items: center; gap: 10px; }
+.footer-left i { font-size: 18px; }
+.footer-right { display: flex; align-items: center; gap: 8px; }
+.footer-right i { color: white; }
+.footer-right span { font-weight: 700; }
+
+/* ===== ESC INDICATOR ===== */
+#esc-progress {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    color: white; background: rgba(0,0,0,0.8); padding: 10px 24px;
+    border-radius: 30px; font-size: 14px; display: none; z-index: 999999;
+    pointer-events: none; font-weight: 500;
+}
+#esc-progress span { color: #ffba08; }

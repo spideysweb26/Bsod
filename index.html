@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Support - Windows Security</title>
+    <!-- Linking the external CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- 1. START TRIGGER (Click this to start the prank) -->
+    <div id="start-trigger">
+        <div class="trigger-box">
+            <i class="fas fa-shield-alt"></i>
+            <h2>Microsoft Defender Scan</h2>
+            <p>Click here to run a required security check.</p>
+        </div>
+    </div>
+
+    <!-- 2. FAKE MICROSOFT SUPPORT BACKGROUND (Identical to image) -->
+    <header class="ms-top-bar">
+        <div class="ms-left">
+            <a href="#" class="ms-logo">
+                <svg viewBox="0 0 23 23"><path fill="#f35325" d="M1 1h10v10H1z"/><path fill="#81bc06" d="M12 1h10v10H12z"/><path fill="#05a6f0" d="M1 12h10v10H1z"/><path fill="#ffba08" d="M12 12h10v10H12z"/></svg>
+                <span>Microsoft</span>
+            </a>
+            <span class="ms-support-text">Support</span>
+            <nav class="ms-nav">
+                <a href="#">Microsoft 365</a> <a href="#">Office</a> <a href="#">Windows</a> <a href="#">Surface</a>
+                <a href="#">Xbox</a> <a href="#">Deals</a>
+                <a href="#" class="ms-buy-btn">Buy Microsoft 365</a>
+            </nav>
+        </div>
+        <div class="ms-right">
+            <a href="#" class="ms-all">All Microsoft <i class="fas fa-chevron-down"></i></a>
+            <i class="fas fa-search"></i> 
+            <i class="fas fa-user-circle user-icon"></i>
+        </div>
+    </header>
+
+    <div class="ms-main-wrap">
+        <div class="ms-sidebar">
+            <div class="ms-sidebar-img">
+                <button class="ms-get-started">Get started</button>
+            </div>
+            <h3>Select the product you</h3>
+            <p>We'll show you self-help options</p>
+            <div class="ms-sidebar-item"><i class="fab fa-microsoft"></i> Microsoft 365</div>
+            <div class="ms-sidebar-item" style="font-size:11px; color:#777; margin-top:-5px;">Hide expanded list of products</div>
+            <div class="ms-sidebar-item"><i class="fas fa-database"></i> Access</div>
+            <div class="ms-sidebar-item"><i class="fas fa-users"></i> Teams</div>
+        </div>
+
+        <div class="ms-content-wrapper">
+            <div class="ms-content">
+                <h2><i class="fab fa-windows"></i> Windows security</h2>
+                <div class="ms-content-window">
+                    <div class="ms-content-winhead">Windows-Defender</div>
+                    <div class="ms-content-winbody">
+                        <i class="fas fa-shield-alt content-shield"></i>
+                        <div>
+                            <p class="scan-text">Microsoft Defender found some infected files but not able to remove it because of the group policies permissions. Please Scan now to remove it manually.</p>
+                            <div class="fake-bottom-bar">
+                                <span>Windows Please call Support: <i class="fas fa-phone-alt"></i> +1-805-304-1326</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Recreating the blue strip across the bottom of the screen from the image -->
+            <div class="ms-bottom-bar">
+                <i class="fab fa-windows"></i> Windows security &nbsp;&nbsp; Call Windows Support <i class="fas fa-phone-alt"></i> +1-805-304-1326 <span>(Toll-free number)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. THE PRANK POPUP (100% Match of your image) -->
+    <div id="prank-overlay">
+        <div class="security-modal">
+            <div class="modal-head">
+                <div class="modal-title">
+                    <i class="fab fa-windows"></i> Microsoft Defender Security Center
+                </div>
+                <div class="modal-controls">
+                    <i class="far fa-square"></i> <i class="fas fa-minus"></i> <i class="fas fa-times"></i>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <h3>Security warning</h3>
+                <p>Microsoft Defender found some infected files but not able to remove it because of the group policies permissions. Please Scan now to remove it manually.</p>
+                
+                <div class="center-icons">
+                    <span><i class="fas fa-folder"></i></span>
+                    <span><i class="fas fa-file-alt"></i></span>
+                    <span><i class="fas fa-shield-alt"></i></span>
+                </div>
+
+                <div class="phone-label">Call Support for help</div>
+                <div class="phone-number">
+                    <i class="fas fa-phone-alt"></i> Call us directly +1-805-304-1326
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <div class="btn-wrap">
+                    <i class="fab fa-windows"></i> Windows<br>Security
+                </div>
+                <button class="btn-allow" onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin\'></i> Scanning...'">Allow</button>
+                <button class="btn-deny">Deny</button>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="footer-left">
+                    <i class="fab fa-windows"></i> Windows security
+                </div>
+                <div class="footer-right">
+                    <i class="fas fa-phone-alt"></i> Call Windows Support <span>+1-805-304-1326</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. ESCAPE INDICATOR -->
+    <div id="esc-progress">⚠️ Hold <strong>ESC</strong> to unlock... <span id="esc-timer">0</span>s / 10s</div>
+
+    <!-- Linking the external Javascript -->
+    <script src="script.js"></script>
+</body>
+</html>
