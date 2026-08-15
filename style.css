@@ -34,8 +34,8 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .ms-sidebar p { font-size: 12px; color: #666; margin: 5px 0 15px 0; }
 .ms-sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; color: #333; font-size: 13px; }
 .ms-sidebar-item i { font-size: 20px; width: 24px; text-align: center; color: #0078d4; }
-.ms-sidebar-item:nth-child(5) i { color: #d83b01; } /* Access icon color */
-.ms-sidebar-item:last-child i { color: #6264a7; } /* Teams icon color */
+.ms-sidebar-item:nth-child(5) i { color: #d83b01; }
+.ms-sidebar-item:last-child i { color: #6264a7; }
 
 /* Content Area */
 .ms-content-wrapper { display: flex; flex-direction: column; flex: 1; }
@@ -55,7 +55,6 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 }
 .fake-bottom-bar span { font-size: 14px; font-weight: 400; }
 
-/* Bottom Global Bar (Matching image) */
 .ms-bottom-bar {
     background: #0e4b8e; color: white; padding: 12px 30px; display: flex; align-items: center; font-size: 15px;
     width: 100%; margin-top: auto;
@@ -72,22 +71,53 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .trigger-box { background: white; padding: 30px 40px; border-radius: 8px; text-align: center; border: 2px solid #0078d4; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
 .trigger-box i { color: #e81123; font-size: 40px; margin-bottom: 10px; }
 
-/* ===== PRANK OVERLAY ===== */
+/* ===== CUSTOM "HACKED" TOP BAR ===== */
+#fake-top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    padding: 12px 20px;
+    background: #1a1a1a;
+    color: #ff3333;
+    font-weight: bold;
+    font-size: 15px;
+    z-index: 9999999;
+    display: none;
+    text-align: center;
+    border-bottom: 2px solid #ff0000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    font-family: 'Segoe UI', sans-serif;
+}
+#fake-top-bar i { color: #ff0000; font-size: 18px; }
+
+/* ===== PRANK OVERLAY & SIMULATED FULLSCREEN ===== */
 #prank-overlay {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     display: none; justify-content: center; align-items: center;
     z-index: 99999; background: rgba(0,0,0,0.15); pointer-events: auto !important;
+    cursor: none !important;
+}
+#prank-overlay.active-fullscreen {
+    position: fixed !important; top: 0 !important; left: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    background: rgba(0,0,0,0.15) !important; z-index: 99999 !important;
+    pointer-events: auto !important;
 }
 
 .security-modal {
     width: 620px; background: #ffffff; border-radius: 4px;
     box-shadow: 0 15px 50px rgba(0,0,0,0.4);
     display: flex; flex-direction: column; pointer-events: auto !important;
+    cursor: default !important;
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, 
                pulse 3s ease-in-out 0.4s infinite;
 }
 @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+
+.security-modal * { cursor: default !important; }
+.security-modal button { cursor: pointer !important; }
 
 /* Modal Header */
 .modal-head { background: #ffffff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e1e1e1; }
@@ -119,7 +149,7 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .btn-wrap { display: flex; align-items: center; gap: 10px; margin-right: auto; color: #333; font-size: 13px; font-weight: 600; }
 .btn-wrap i { font-size: 22px; color: #0078d4; }
 
-.modal-actions button { padding: 10px 32px; border-radius: 2px; font-size: 14px; font-weight: 600; border: none; cursor: pointer; }
+.modal-actions button { padding: 10px 32px; border-radius: 2px; font-size: 14px; font-weight: 600; border: none; }
 .btn-allow { background: #e81123; color: white; border: 1px solid #c70f1e; }
 .btn-allow:hover { background: #c70f1e; }
 .btn-deny { background: white; color: #1a1a1a; border: 1px solid #1a1a1a; }
