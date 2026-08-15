@@ -21,18 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.style.overflow = 'hidden'; // Hide scrollbars
         prankOverlay.style.pointerEvents = 'auto';        // Allow clicks inside the popup
 
-        // FORCE FULLSCREEN (Twice for stubborn browsers)
-        const requestFullscreen = () => {
-            const el = document.documentElement;
-            if (el.requestFullscreen) el.requestFullscreen();
-            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-            else if (el.msRequestFullscreen) el.msRequestFullscreen();
-        };
-        requestFullscreen();
-        setTimeout(requestFullscreen, 500); 
+        // Force fullscreen
+        const el = document.documentElement;
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.msRequestFullscreen) el.msRequestFullscreen();
     });
 
-    // 2. ULTIMATE KEYBOARD LOCKDOWN
+    // 2. KEYBOARD LOCKDOWN
     document.addEventListener('keydown', (e) => {
         if (!isLocked) return;
 
@@ -43,22 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     const elapsed = Math.floor((Date.now() - escStartTime) / 1000);
                     escTimerSpan.innerText = elapsed;
                     if (elapsed >= 10) {
-                        exitPrank(); 
+                        exitPrank(); // Actually unlock
                     }
                 }, 100);
             }
-            e.preventDefault(); // Tell the browser NOT to process ESC
+            e.preventDefault();
             e.stopPropagation();
             return false;
         }
 
-        // Block everything else
+        // Block every other key (F11, Ctrl+W, etc)
         e.preventDefault();
         e.stopPropagation();
         return false;
     }, true);
 
-    // 3. CANCEL ESCAPE TIMER IF KEY IS RELEASED EARLY
+    // 3. CANCEL ESCAPE TIMER IF RELEASED EARLY
     document.addEventListener('keyup', (e) => {
         if (!isLocked) return;
         if (e.key === 'Escape') {
@@ -69,24 +65,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
-    // 4. BLOCK RIGHT-CLICK & MOUSE SCROLL WHEEL
+    // 4. BLOCK RIGHT-CLICK & SCROLL
     document.addEventListener('contextmenu', (e) => { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', (e) => { if (isLocked) e.preventDefault(); }, { passive: false });
 
-    // 5. INSTANT ANTI-CHEAT: RE-ENTER FULLSCREEN IN 10 MILLISECONDS
-    // We cover all browser types here
-    function forceFullscreenBack() {
-        if (isLocked && !document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    // 5. ULTIMATE FULLSCREEN RECOVERY (INSTANT)
+    // This runs the millisecond the browser drops out of fullscreen.
+    document.addEventListener('fullscreenchange', () => {
+        if (isLocked && !document.fullscreenElement) {
             const el = document.documentElement;
+            // Request fullscreen immediately
             if (el.requestFullscreen) el.requestFullscreen();
-            else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-            else if (el.msRequestFullscreen) el.msRequestFullscreen();
+            
+            // 0ms fallback in case the browser blocks the first attempt (rare)
+            setTimeout(() => {
+                if (isLocked && !document.fullscreenElement) {
+                    if (el.requestFullscreen) el.requestFullscreen();
+                }
+            }, 0);
         }
-    }
-
-    document.addEventListener('fullscreenchange', forceFullscreenBack);
-    document.addEventListener('webkitfullscreenchange', forceFullscreenBack);
-    document.addEventListener('msfullscreenchange', forceFullscreenBack);
+    });
 
     // 6. EXIT FUNCTION (Held ESC for 10s)
     function exitPrank() {
