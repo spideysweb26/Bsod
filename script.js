@@ -18,12 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
         escProgress.style.display = 'block';
         fakeTopBar.style.display = 'block';
 
-        // Lock clicks and scrolling
         document.body.style.pointerEvents = 'none';
         document.documentElement.style.overflow = 'hidden';
         prankOverlay.style.pointerEvents = 'auto';
 
-        // Activate Native Fullscreen
         const el = document.documentElement;
         if (el.requestFullscreen) el.requestFullscreen();
         else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
@@ -66,20 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
-    // Block Right Click & Scroll
     document.addEventListener('contextmenu', (e) => { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', (e) => { if (isLocked) e.preventDefault(); }, { passive: false });
 
-    // ULTIMATE DEFENSE AGAINST THE TOP 'X' BUTTON
-    // The browser exits fullscreen, but we instantly snap it back in 0ms
+    // ===== INSTANT FULLSCREEN RECOVERY (10ms) =====
+    // When the browser exits native fullscreen due to ESC, we instantly snap it back.
+    // 10ms is the absolute minimum necessary to bypass Chrome's anti-spam cooldown.
     document.addEventListener('fullscreenchange', () => {
         if (isLocked && !document.fullscreenElement) {
             setTimeout(() => {
                 if (isLocked && !document.fullscreenElement) {
                     const el = document.documentElement;
                     if (el.requestFullscreen) el.requestFullscreen();
+                    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
                 }
-            }, 0); // 0ms delay - essentially immediate.
+            }, 10); 
         }
     });
 
