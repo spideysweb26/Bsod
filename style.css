@@ -1,7 +1,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f2f2f2; }
 
-/* Fake Microsoft Background */
 .ms-top-bar { background: #ffffff; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 54px; border-bottom: 1px solid #e1e1e1; }
 .ms-left, .ms-right { display: flex; align-items: center; gap: 20px; }
 .ms-logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; color: #737373; text-decoration: none; }
@@ -17,7 +16,7 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .ms-main-wrap { display: flex; height: calc(100vh - 54px); }
 .ms-sidebar { width: 240px; background: #f3f2f1; padding: 20px; border-right: 1px solid #e1e1e1; display: flex; flex-direction: column; }
 .ms-sidebar-img { height: 180px; margin-bottom: 20px; border-radius: 4px; background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; }
-.ms-get-started { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: #0078d4; color: white; padding: 8px 16px; border-radius: 4px; border: none; font-weight: 600; font-size: 13px; cursor: pointer; }
+.ms-get-started { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: #0078d4; color: white; padding: 8px 16px; border-radius: 4px; border: none; font-weight: 600; font-size: 13px; }
 .ms-sidebar h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; }
 .ms-sidebar p { font-size: 12px; color: #666; margin: 5px 0 15px 0; }
 .ms-sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; color: #333; font-size: 13px; }
@@ -36,27 +35,27 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .ms-bottom-bar i { margin-right: 10px; font-size: 20px; }
 .ms-bottom-bar span { font-weight: 700; margin-left: 8px; }
 
-/* Start Trigger */
 #start-trigger { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; z-index: 9998; background: rgba(0,0,0,0.3); cursor: pointer; }
 .trigger-box { background: white; padding: 30px 40px; border-radius: 8px; text-align: center; border: 2px solid #0078d4; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
 .trigger-box i { color: #e81123; font-size: 40px; margin-bottom: 10px; }
 
-/* Custom Top Warning Bar */
 #fake-top-bar { position: fixed; top: 0; left: 0; width: 100vw; padding: 10px 20px; background: #1a1a1a; color: #ff3333; font-weight: bold; font-size: 15px; z-index: 9999999; display: none; text-align: center; border-bottom: 2px solid #ff0000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); font-family: 'Segoe UI', sans-serif; }
 #fake-top-bar i { color: #ff0000; font-size: 18px; }
 
-/* The Prank Overlay */
-#prank-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; justify-content: center; align-items: center; z-index: 99999; background: rgba(0,0,0,0.15); pointer-events: auto !important; cursor: none !important; }
-.security-modal { width: 620px; background: #ffffff; border-radius: 4px; box-shadow: 0 15px 50px rgba(0,0,0,0.4); display: flex; flex-direction: column; pointer-events: auto !important; cursor: default !important; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, pulse 3s ease-in-out 0.4s infinite; }
+/* ===== COMPLETE MOUSE KILLER ===== */
+#prank-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; justify-content: center; align-items: center; z-index: 99999; background: rgba(0,0,0,0.15); pointer-events: auto !important; }
+#prank-overlay, #prank-overlay * {
+    cursor: none !important; /* Forces the mouse to disappear literally everywhere! */
+}
+
+.security-modal { width: 620px; background: #ffffff; border-radius: 4px; box-shadow: 0 15px 50px rgba(0,0,0,0.4); display: flex; flex-direction: column; pointer-events: auto !important; animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, pulse 3s ease-in-out 0.4s infinite; }
 @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
-.security-modal * { cursor: default !important; }
-.security-modal button { cursor: pointer !important; }
 
 .modal-head { background: #ffffff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e1e1e1; }
 .modal-title { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 600; color: #1a1a1a; }
 .modal-title i { font-size: 24px; color: #0078d4; }
-.modal-controls i { color: #555; margin-left: 12px; font-size: 14px; cursor: default; }
+.modal-controls i { color: #555; margin-left: 12px; font-size: 14px; }
 
 .modal-body { padding: 20px 40px 10px 40px; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .modal-body h3 { font-size: 18px; font-weight: 600; color: #1a1a1a; margin-bottom: 10px; }
