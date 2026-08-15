@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const prankOverlay = document.getElementById('prank-overlay');
     const escProgress = document.getElementById('esc-progress');
     const escTimerSpan = document.getElementById('esc-timer');
+    const fakeTopBar = document.getElementById('fake-top-bar');
 
     // 1. ACTIVATE THE PRANK
     startTrigger.addEventListener('click', () => {
@@ -15,20 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         startTrigger.style.display = 'none';
         prankOverlay.style.display = 'flex';
+        prankOverlay.classList.add('active-fullscreen');
         escProgress.style.display = 'block';
+        fakeTopBar.style.display = 'block'; // Show the hacked warning bar
 
-        document.body.style.pointerEvents = 'none';       // Prevent clicks
-        document.documentElement.style.overflow = 'hidden'; // Hide scrollbars
-        prankOverlay.style.pointerEvents = 'auto';        // Allow clicks inside the popup
-
-        // Force fullscreen
-        const el = document.documentElement;
-        if (el.requestFullscreen) el.requestFullscreen();
-        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-        else if (el.msRequestFullscreen) el.msRequestFullscreen();
+        document.body.style.pointerEvents = 'none';
+        document.documentElement.style.overflow = 'hidden';
+        prankOverlay.style.pointerEvents = 'auto';
     });
 
-    // 2. KEYBOARD LOCKDOWN
+    // 2. ULTIMATE KEYBOARD LOCKDOWN
     document.addEventListener('keydown', (e) => {
         if (!isLocked) return;
 
@@ -39,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const elapsed = Math.floor((Date.now() - escStartTime) / 1000);
                     escTimerSpan.innerText = elapsed;
                     if (elapsed >= 10) {
-                        exitPrank(); // Actually unlock
+                        exitPrank();
                     }
                 }, 100);
             }
@@ -48,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
 
-        // Block every other key (F11, Ctrl+W, etc)
         e.preventDefault();
         e.stopPropagation();
         return false;
@@ -69,38 +65,20 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('contextmenu', (e) => { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', (e) => { if (isLocked) e.preventDefault(); }, { passive: false });
 
-    // 5. ULTIMATE FULLSCREEN RECOVERY (INSTANT)
-    document.addEventListener('fullscreenchange', () => {
-        if (isLocked && !document.fullscreenElement) {
-            const el = document.documentElement;
-            if (el.requestFullscreen) el.requestFullscreen();
-            
-            setTimeout(() => {
-                if (isLocked && !document.fullscreenElement) {
-                    if (el.requestFullscreen) el.requestFullscreen();
-                }
-            }, 0);
-        }
-    });
-
-    // 6. EXIT FUNCTION (Held ESC for 10s) - UPDATED WITH CURSOR RESET
+    // 5. EXIT FUNCTION (Held ESC for 10s)
     function exitPrank() {
         isLocked = false;
         clearInterval(escTimer);
         escTimer = null;
 
         prankOverlay.style.display = 'none';
+        prankOverlay.classList.remove('active-fullscreen');
         escProgress.style.display = 'none';
+        fakeTopBar.style.display = 'none'; // Hide the hacked warning bar
         document.body.style.pointerEvents = 'auto';
         document.documentElement.style.overflow = 'auto';
         startTrigger.style.display = 'none';
-        
-        // Reset cursor back to normal when exiting
         document.documentElement.style.cursor = 'auto';
-
-        if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        else if (document.msExitFullscreen) document.msExitFullscreen();
 
         alert("✅ Prank finished!\nYou held ESC for 10 seconds.\nSystem is now safe.");
         window.location.reload();
