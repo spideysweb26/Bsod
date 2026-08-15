@@ -18,23 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
         escProgress.style.display = 'block';
         fakeTopBar.style.display = 'block';
 
-        // 1. CURSOR KILLER: Hide the mouse permanently everywhere
-        document.body.style.cursor = 'none';
-        document.documentElement.style.cursor = 'none';
-        prankOverlay.style.cursor = 'none';
-
-        // 2. LOCK CLICKS
+        // Lock clicks and scrolling
         document.body.style.pointerEvents = 'none';
         document.documentElement.style.overflow = 'hidden';
         prankOverlay.style.pointerEvents = 'auto';
 
-        // 3. ACTIVATE TRUE NATIVE FULLSCREEN (Covers the OS Taskbar)
+        // Activate Native Fullscreen
         const el = document.documentElement;
         if (el.requestFullscreen) el.requestFullscreen();
         else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
     });
 
-    // 4. ULTIMATE KEYBOARD LOCK (stopImmediatePropagation blocks everything)
+    // Block Keyboard Completely
     document.addEventListener('keydown', (e) => {
         if (!isLocked) return;
 
@@ -55,14 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
 
-        // Block F11, Ctrl+W, Ctrl+R, Alt+F4, etc.
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
         return false;
     }, true);
 
-    // 5. CANCEL ESCAPE IF RELEASED EARLY
     document.addEventListener('keyup', (e) => {
         if (!isLocked) return;
         if (e.key === 'Escape') {
@@ -73,11 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
-    // 6. BLOCK RIGHT-CLICK & SCROLL
+    // Block Right Click & Scroll
     document.addEventListener('contextmenu', (e) => { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', (e) => { if (isLocked) e.preventDefault(); }, { passive: false });
 
-    // 7. ANTI-CHEAT: Force back into fullscreen instantly if they tap Esc early
+    // ULTIMATE DEFENSE AGAINST THE TOP 'X' BUTTON
+    // The browser exits fullscreen, but we instantly snap it back in 0ms
     document.addEventListener('fullscreenchange', () => {
         if (isLocked && !document.fullscreenElement) {
             setTimeout(() => {
@@ -85,11 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const el = document.documentElement;
                     if (el.requestFullscreen) el.requestFullscreen();
                 }
-            }, 0);
+            }, 0); // 0ms delay - essentially immediate.
         }
     });
 
-    // 8. EXIT PRANK
     function exitPrank() {
         isLocked = false;
         clearInterval(escTimer);
@@ -100,8 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fakeTopBar.style.display = 'none';
         document.body.style.pointerEvents = 'auto';
         document.documentElement.style.overflow = 'auto';
-        document.body.style.cursor = 'auto';
-        document.documentElement.style.cursor = 'auto';
         startTrigger.style.display = 'none';
 
         if (document.exitFullscreen) document.exitFullscreen();
