@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microsoft Support - Windows Security</title>
-    <!-- Linking the external CSS -->
     <link rel="stylesheet" href="style.css">
-    <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- 1. START TRIGGER (Click this to start the prank) -->
+    <!-- 0. CUSTOM "HACKED" TOP BAR (Replaces browser bar) -->
+    <div id="fake-top-bar">
+        <i class="fas fa-skull" style="margin-right:12px;"></i> 
+        Your computer has been Hacked by intruder and your personal and financial informations are compromised pealse contact support to fix it.
+    </div>
+
+    <!-- 1. START TRIGGER -->
     <div id="start-trigger">
         <div class="trigger-box">
             <i class="fas fa-shield-alt"></i>
@@ -20,7 +24,7 @@
         </div>
     </div>
 
-    <!-- 2. FAKE MICROSOFT SUPPORT BACKGROUND (Identical to image) -->
+    <!-- 2. FAKE MICROSOFT SUPPORT BACKGROUND -->
     <header class="ms-top-bar">
         <div class="ms-left">
             <a href="#" class="ms-logo">
@@ -70,14 +74,13 @@
                     </div>
                 </div>
             </div>
-            <!-- Recreating the blue strip across the bottom of the screen from the image -->
             <div class="ms-bottom-bar">
                 <i class="fab fa-windows"></i> Windows security &nbsp;&nbsp; Call Windows Support <i class="fas fa-phone-alt"></i> +1-805-304-1326 <span>(Toll-free number)</span>
             </div>
         </div>
     </div>
 
-    <!-- 3. THE PRANK POPUP (100% Match of your image) -->
+    <!-- 3. THE PRANK POPUP -->
     <div id="prank-overlay">
         <div class="security-modal">
             <div class="modal-head">
@@ -125,9 +128,8 @@
     </div>
 
     <!-- 4. ESCAPE INDICATOR -->
-    <div id="esc-progress">Contact Support for Help +1-805-304-1326  </div>
+    <div id="esc-progress">⚠️ Hold <strong>ESC</strong> to unlock... <span id="esc-timer">0</span>s / 10s</div>
 
-    <!-- Linking the external Javascript -->
     <script src="script.js"></script>
 </body>
 </html>
