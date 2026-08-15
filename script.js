@@ -9,23 +9,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const escTimerSpan = document.getElementById('esc-timer');
     const fakeTopBar = document.getElementById('fake-top-bar');
 
-    // 1. ACTIVATE THE PRANK
     startTrigger.addEventListener('click', () => {
         if (isLocked) return;
         isLocked = true;
 
         startTrigger.style.display = 'none';
         prankOverlay.style.display = 'flex';
-        prankOverlay.classList.add('active-fullscreen');
         escProgress.style.display = 'block';
-        fakeTopBar.style.display = 'block'; // Show the hacked warning bar
+        fakeTopBar.style.display = 'block';
 
+        // 1. CURSOR KILLER: Hide the mouse permanently everywhere
+        document.body.style.cursor = 'none';
+        document.documentElement.style.cursor = 'none';
+        prankOverlay.style.cursor = 'none';
+
+        // 2. LOCK CLICKS
         document.body.style.pointerEvents = 'none';
         document.documentElement.style.overflow = 'hidden';
         prankOverlay.style.pointerEvents = 'auto';
+
+        // 3. ACTIVATE TRUE NATIVE FULLSCREEN (Covers the OS Taskbar)
+        const el = document.documentElement;
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
     });
 
-    // 2. ULTIMATE KEYBOARD LOCKDOWN
+    // 4. ULTIMATE KEYBOARD LOCK (stopImmediatePropagation blocks everything)
     document.addEventListener('keydown', (e) => {
         if (!isLocked) return;
 
@@ -42,15 +51,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             e.preventDefault();
             e.stopPropagation();
+            e.stopImmediatePropagation();
             return false;
         }
 
+        // Block F11, Ctrl+W, Ctrl+R, Alt+F4, etc.
         e.preventDefault();
         e.stopPropagation();
+        e.stopImmediatePropagation();
         return false;
     }, true);
 
-    // 3. CANCEL ESCAPE TIMER IF RELEASED EARLY
+    // 5. CANCEL ESCAPE IF RELEASED EARLY
     document.addEventListener('keyup', (e) => {
         if (!isLocked) return;
         if (e.key === 'Escape') {
@@ -61,24 +73,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
-    // 4. BLOCK RIGHT-CLICK & SCROLL
+    // 6. BLOCK RIGHT-CLICK & SCROLL
     document.addEventListener('contextmenu', (e) => { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', (e) => { if (isLocked) e.preventDefault(); }, { passive: false });
 
-    // 5. EXIT FUNCTION (Held ESC for 10s)
+    // 7. ANTI-CHEAT: Force back into fullscreen instantly if they tap Esc early
+    document.addEventListener('fullscreenchange', () => {
+        if (isLocked && !document.fullscreenElement) {
+            setTimeout(() => {
+                if (isLocked && !document.fullscreenElement) {
+                    const el = document.documentElement;
+                    if (el.requestFullscreen) el.requestFullscreen();
+                }
+            }, 0);
+        }
+    });
+
+    // 8. EXIT PRANK
     function exitPrank() {
         isLocked = false;
         clearInterval(escTimer);
         escTimer = null;
 
         prankOverlay.style.display = 'none';
-        prankOverlay.classList.remove('active-fullscreen');
         escProgress.style.display = 'none';
-        fakeTopBar.style.display = 'none'; // Hide the hacked warning bar
+        fakeTopBar.style.display = 'none';
         document.body.style.pointerEvents = 'auto';
         document.documentElement.style.overflow = 'auto';
-        startTrigger.style.display = 'none';
+        document.body.style.cursor = 'auto';
         document.documentElement.style.cursor = 'auto';
+        startTrigger.style.display = 'none';
+
+        if (document.exitFullscreen) document.exitFullscreen();
 
         alert("✅ Prank finished!\nYou held ESC for 10 seconds.\nSystem is now safe.");
         window.location.reload();
