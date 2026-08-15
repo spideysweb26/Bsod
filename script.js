@@ -70,14 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('wheel', (e) => { if (isLocked) e.preventDefault(); }, { passive: false });
 
     // 5. ULTIMATE FULLSCREEN RECOVERY (INSTANT)
-    // This runs the millisecond the browser drops out of fullscreen.
     document.addEventListener('fullscreenchange', () => {
         if (isLocked && !document.fullscreenElement) {
             const el = document.documentElement;
-            // Request fullscreen immediately
             if (el.requestFullscreen) el.requestFullscreen();
             
-            // 0ms fallback in case the browser blocks the first attempt (rare)
             setTimeout(() => {
                 if (isLocked && !document.fullscreenElement) {
                     if (el.requestFullscreen) el.requestFullscreen();
@@ -86,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 6. EXIT FUNCTION (Held ESC for 10s)
+    // 6. EXIT FUNCTION (Held ESC for 10s) - UPDATED WITH CURSOR RESET
     function exitPrank() {
         isLocked = false;
         clearInterval(escTimer);
@@ -97,6 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.pointerEvents = 'auto';
         document.documentElement.style.overflow = 'auto';
         startTrigger.style.display = 'none';
+        
+        // Reset cursor back to normal when exiting
+        document.documentElement.style.cursor = 'auto';
 
         if (document.exitFullscreen) document.exitFullscreen();
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
