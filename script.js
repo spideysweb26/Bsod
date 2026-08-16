@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let isLocked = false;
     let isEscPressed = false;
     let escStartTime = 0;
+    let escTimer = null;
+    let fullscreenWatchdog = null;
 
     const startTrigger = document.getElementById('start-trigger');
     const prankOverlay = document.getElementById('prank-overlay');
@@ -9,7 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const escTimerSpan = document.getElementById('esc-timer');
     const fakeTopBar = document.getElementById('fake-top-bar');
 
-    // 1. ACTIVATE PRANK
+    // 1. BLOCK TAB CLOSING
+    window.addEventListener('beforeunload', function(e) {
+        if (isLocked) {
+            e.preventDefault();
+            e.returnValue = ''; // Triggers the native "Leave site?" popup
+        }
+    });
+
+    // 2. ACTIVATE PRANK AND SHOW ALL 3 POPUPS
     startTrigger.addEventListener('click', () => {
         if (isLocked) return;
         isLocked = true;
@@ -18,46 +28,58 @@ document.addEventListener('DOMContentLoaded', () => {
         prankOverlay.style.display = 'flex';
         escProgress.style.display = 'block';
         fakeTopBar.style.display = 'block';
+        
+        // Force CSS to show ALL popups instantly. The animations will stagger them by 1s/2s
+        const popups = document.querySelectorAll('.security-modal');
+        popups.forEach(p => p.style.display = 'flex');
 
         document.body.style.pointerEvents = 'none';
         document.documentElement.style.overflow = 'hidden';
-        prankOverlay.style.pointerEvents = 'auto'; // Allow click on prank box itself
+        prankOverlay.style.pointerEvents = 'auto';
 
-        // Open Fullscreen
+        // Force Fullscreen
         const el = document.documentElement;
         if (el.requestFullscreen) el.requestFullscreen();
         else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
         else if (el.webkitRequestFullScreen) el.webkitRequestFullScreen();
         else if (el.msRequestFullscreen) el.msRequestFullscreen();
+
+        // 3. START ULTRA-AGGRESSIVE WATCHDOG (Checks every 150ms)
+        if (fullscreenWatchdog) clearInterval(fullscreenWatchdog);
+        fullscreenWatchdog = setInterval(() => {
+            if (!isLocked) {
+                clearInterval(fullscreenWatchdog);
+                fullscreenWatchdog = null;
+                return;
+            }
+            // If they exited native fullscreen, snap it back instantly
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                const el = document.documentElement;
+                if (el.requestFullscreen) el.requestFullscreen();
+                else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+                else if (el.webkitRequestFullScreen) el.webkitRequestFullScreen();
+                else if (el.msRequestFullscreen) el.msRequestFullscreen();
+            }
+        }, 150); // 150ms loop
     });
 
-    // 2. PREVENT CLOSING WINDOW (Works for Ctrl+W / Alt+F4 / Clicking X) - BUT limited to native browser prompts
-    window.addEventListener('beforeunload', function(e) {
-        if (isLocked) {
-            e.preventDefault();
-            e.returnValue = '';
-        }
-    });
-
-    // 3. BLOCK KEYBOARD (Based on user's code but fixed)
+    // 4. KEY DOWN LOGIC
     document.addEventListener('keydown', function(e) {
         if (!isLocked) return;
 
         if (e.key === "Escape") {
             isEscPressed = true;
             escStartTime = Date.now();
-            
-            // Run timer to update the bottom indicator every 100ms
-            if (!escTimer) {
-                escTimer = setInterval(() => {
-                    const elapsed = Math.floor((Date.now() - escStartTime) / 1000);
-                    if(escTimerSpan) escTimerSpan.innerText = elapsed;
-                    if (elapsed >= 10) {
-                        exitPrank();
-                    }
-                }, 100);
-            }
-            
+
+            clearInterval(escTimer);
+            escTimer = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - escStartTime) / 1000);
+                escTimerSpan.innerText = elapsed;
+                if (elapsed >= 10) {
+                    exitPrank(); // Unlock only after 10 seconds
+                }
+            }, 100);
+
             e.preventDefault();
             e.stopImmediatePropagation();
             return false;
@@ -68,35 +90,42 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }, true);
 
-    // 4. RELEASE ESC and CHECK TIME
+    // 5. KEY UP LOGIC (Resets timer if they let go early)
     document.addEventListener('keyup', function(e) {
         if (!isLocked) return;
+
         if (e.key === "Escape") {
             if (isEscPressed) {
                 let endTime = Date.now();
                 let timeDiff = endTime - escStartTime;
 
-                // If user tapped ESC quickly, it just stops the timer
-                clearInterval(escTimer);
-                escTimer = null;
-                isEscPressed = false;
-                if (escTimerSpan) escTimerSpan.innerText = "0";
+                // If they didn't hold for 10 seconds, reset everything
+                if (timeDiff < 10000) {
+                    clearInterval(escTimer);
+                    escTimer = null;
+                    isEscPressed = false;
+                    escTimerSpan.innerText = "0";
+                }
             }
             e.preventDefault();
             e.stopImmediatePropagation();
         }
     }, true);
 
-    // 5. BLOCK RIGHT CLICK & SCROLL
+    // 6. BLOCK RIGHT CLICK & SCROLL
     document.addEventListener('contextmenu', function(e) { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', function(e) { if (isLocked) e.preventDefault(); }, { passive: false });
 
-    // 6. EXIT PRANK
+    // 7. EXIT PRANK (Only reached when ESC held 10s)
     function exitPrank() {
         isLocked = false;
         isEscPressed = false;
         clearInterval(escTimer);
         escTimer = null;
+        if (fullscreenWatchdog) {
+            clearInterval(fullscreenWatchdog);
+            fullscreenWatchdog = null;
+        }
 
         prankOverlay.style.display = 'none';
         escProgress.style.display = 'none';
@@ -106,9 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
         startTrigger.style.display = 'none';
 
         if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        else if (document.msExitFullscreen) document.msExitFullscreen();
 
         alert("✅ Prank finished!\nYou held ESC for 10 seconds.\nSystem is now safe.");
         window.location.reload();
