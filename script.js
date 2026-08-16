@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. ACTIVATE PRANK AND SHOW ALL 3 POPUPS
+    // 2. ACTIVATE PRANK
     startTrigger.addEventListener('click', () => {
         if (isLocked) return;
         isLocked = true;
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         escProgress.style.display = 'block';
         fakeTopBar.style.display = 'block';
         
-        // Force CSS to show ALL popups instantly. The animations will stagger them by 1s/2s
+        // Reveal ALL 3 popups so the CSS animations take over
         const popups = document.querySelectorAll('.security-modal');
         popups.forEach(p => p.style.display = 'flex');
 
