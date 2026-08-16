@@ -46,7 +46,7 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 #prank-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; justify-content: center; align-items: center; z-index: 99999; background: rgba(0,0,0,0.15); pointer-events: auto !important; }
 #prank-overlay, #prank-overlay * { cursor: none !important; }
 
-/* ===== MULTIPLE POPUPS STYLING ===== */
+/* ===== MULTIPLE POPUPS STYLING & FIXED VISIBLE POSITIONS ===== */
 .security-modal {
     position: absolute;
     width: 620px;
@@ -56,32 +56,32 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
     display: flex;
     flex-direction: column;
     pointer-events: auto !important;
-    /* Base Animation */
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
-@keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes popIn { 0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
 
-/* Staggered animations and positioning for the 3 popups */
-.popup-1 {
+/* POSITION 1: Center */
+.popup-center {
     top: 50%; left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
-    animation-delay: 0s;
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s forwards, pulse 3s ease-in-out 0.4s infinite;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s forwards, pulseCenter 3s ease-in-out 0.4s infinite;
 }
-.popup-2 {
-    top: 55%; left: 60%; /* Offset to bottom right */
-    transform: translate(-50%, -50%) scale(0.8);
-    animation-delay: 1s;
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards, pulse 3s ease-in-out 1.4s infinite;
-}
-.popup-3 {
-    top: 45%; left: 40%; /* Offset to top left */
-    transform: translate(-50%, -50%) scale(0.8);
-    animation-delay: 2s;
-    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2s forwards, pulse 3s ease-in-out 2.4s infinite;
-}
+@keyframes pulseCenter { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
 
-@keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
+/* POSITION 2: Top Left */
+.popup-tl {
+    top: 30%; left: 25%; /* Offset to top left */
+    transform: translate(-50%, -50%) scale(0.8);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1s forwards, pulseTL 3s ease-in-out 1.4s infinite;
+}
+@keyframes pulseTL { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
+
+/* POSITION 3: Bottom Right */
+.popup-br {
+    top: 70%; left: 75%; /* Offset to bottom right */
+    transform: translate(-50%, -50%) scale(0.8);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2s forwards, pulseBR 3s ease-in-out 2.4s infinite;
+}
+@keyframes pulseBR { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
 
 .modal-head { background: #ffffff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e1e1e1; }
 .modal-title { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 600; color: #1a1a1a; }
