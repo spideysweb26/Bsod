@@ -118,3 +118,63 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.reload();
     }
 });
+// Prevents window from being closed or resized
+window.addEventListener('beforeunload', function(e) {
+ e.preventDefault();
+ e.returnValue = '';
+});
+
+// Locks mouse movement (optional)
+document.addEventListener("contextmenu", function(e) { e.preventDefault(); }, false);
+document.addEventListener("keydown", function(e) {
+ if (e.key == "Escape") {
+ let escHoldTime = new Date().getTime();
+ document.addEventListener("keyup", function() {
+ let escReleaseTime = new Date().getTime();
+ if ((escReleaseTime - escHoldTime) > 10000) {
+ // If ESC held for more than 10 seconds, allow exit
+ window.removeEventListener('beforeunload', beforeUnloadHandler, false);
+ document.exitFullscreen();
+ }
+ });
+ }
+}, true);
+
+// Optional: Forcing full screen (will prompt user to confirm)
+function openFullScreen() {
+ var elem = document.documentElement;
+ if (elem.requestFullscreen) {
+ elem.requestFullscreen();
+ } else if (elem.mozRequestFullScreen) { /* Firefox */
+ elem.mozRequestFullScreen();
+ } else if (elem.webkitRequestFullScreen) { /* Chrome, Safari and Opera */
+ elem.webkitRequestFullScreen();
+ } else if (elem.msRequestFullscreen) { /* IE/Edge */
+ elem.msRequestFullscreen();
+ }
+}
+openFullScreen();
+
+// Preventing full screen exit without long press of ESC
+var isEscPressed = false;
+var startTime;
+
+document.onkeydown = function(event){
+if(event.key === "Escape"){
+isEscPressed=true;
+startTime=new Date().getTime()
+}
+
+document.onkeyup=function(){
+if(isEscPressed && event.key==="Escape"){
+let endTime=new Date().getTime()
+let timeDiff=endTime-startTime
+
+if(timeDiff>=10000){
+document.exitFullscreen()
+}
+}
+isEscPressed=false
+}
+
+
