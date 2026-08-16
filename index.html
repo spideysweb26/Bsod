@@ -11,7 +11,7 @@
 
     <div id="fake-top-bar">
         <i class="fas fa-skull" style="margin-right:12px;"></i> 
-        Your computer has been Hacked by intruder and your personal and financial informations are compromised pealse contact support to fix it.
+        Your computer has been Hacked by intruder and your personal and financial informations are compromised. Please contact support to fix it.
     </div>
 
     <div id="start-trigger">
@@ -77,8 +77,11 @@
         </div>
     </div>
 
+    <!-- 3. MULTIPLE PRANK POPUPS -->
     <div id="prank-overlay">
-        <div class="security-modal">
+        
+        <!-- POPUP 1: Main Center (Original) -->
+        <div class="security-modal popup-1">
             <div class="modal-head">
                 <div class="modal-title">
                     <i class="fab fa-windows"></i> Microsoft Defender Security Center
@@ -87,40 +90,88 @@
                     <i class="far fa-square"></i> <i class="fas fa-minus"></i> <i class="fas fa-times"></i>
                 </div>
             </div>
-            
             <div class="modal-body">
                 <h3>Security warning</h3>
                 <p>Microsoft Defender found some infected files but not able to remove it because of the group policies permissions. Please Scan now to remove it manually.</p>
-                
                 <div class="center-icons">
                     <span><i class="fas fa-folder"></i></span>
                     <span><i class="fas fa-file-alt"></i></span>
                     <span><i class="fas fa-shield-alt"></i></span>
                 </div>
-
                 <div class="phone-label">Call Support for help</div>
                 <div class="phone-number">
                     <i class="fas fa-phone-alt"></i> Call us directly +1-805-304-1326
                 </div>
             </div>
-            
             <div class="modal-actions">
-                <div class="btn-wrap">
-                    <i class="fab fa-windows"></i> Windows<br>Security
-                </div>
+                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows<br>Security</div>
                 <button class="btn-allow" onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin\'></i> Scanning...'">Allow</button>
                 <button class="btn-deny">Deny</button>
             </div>
-            
             <div class="modal-footer">
-                <div class="footer-left">
-                    <i class="fab fa-windows"></i> Windows security
-                </div>
-                <div class="footer-right">
-                    <i class="fas fa-phone-alt"></i> Call Windows Support <span>+1-805-304-1326</span>
-                </div>
+                <div class="footer-left"><i class="fab fa-windows"></i> Windows security</div>
+                <div class="footer-right"><i class="fas fa-phone-alt"></i> Call Windows Support <span>+1-805-304-1326</span></div>
             </div>
         </div>
+
+        <!-- POPUP 2: Ransomware Alert (Appears 1s late, right side) -->
+        <div class="security-modal popup-2">
+            <div class="modal-head">
+                <div class="modal-title">
+                    <i class="fas fa-skull" style="color:#e81123;"></i> Ransomware Protection
+                </div>
+                <div class="modal-controls">
+                    <i class="far fa-square"></i> <i class="fas fa-minus"></i> <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h3>Critical Action Required</h3>
+                <p>Ransomware activity detected on your network drive. Files are being encrypted. Immediate action is required to prevent data loss.</p>
+                <div class="phone-label">Contact Security Team immediately</div>
+                <div class="phone-number">
+                    <i class="fas fa-phone-alt"></i> Call +1-805-304-1326 (Line 2)
+                </div>
+            </div>
+            <div class="modal-actions">
+                <div class="btn-wrap"><i class="fas fa-shield-alt"></i> Ransomware<br>Protection</div>
+                <button class="btn-allow" style="background:#0078d4;">Block</button>
+                <button class="btn-deny">Ignore</button>
+            </div>
+            <div class="modal-footer">
+                <div class="footer-left"><i class="fas fa-shield-alt"></i> Security Center</div>
+                <div class="footer-right"><i class="fas fa-phone-alt"></i> Emergency Support <span>+1-805-304-1326</span></div>
+            </div>
+        </div>
+
+        <!-- POPUP 3: Credential Theft (Appears 2s late, left side) -->
+        <div class="security-modal popup-3">
+            <div class="modal-head">
+                <div class="modal-title">
+                    <i class="fas fa-user-secret" style="color:#e81123;"></i> Identity Alert
+                </div>
+                <div class="modal-controls">
+                    <i class="far fa-square"></i> <i class="fas fa-minus"></i> <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h3>Credential Theft Detected</h3>
+                <p>Unauthorized access attempts detected on your Microsoft 365 account. Your personal data is currently being exported to an unknown external server.</p>
+                <div class="phone-label">Verify your identity immediately</div>
+                <div class="phone-number">
+                    <i class="fas fa-phone-alt"></i> Call +1-805-304-1326 (Line 3)
+                </div>
+            </div>
+            <div class="modal-actions">
+                <div class="btn-wrap"><i class="fas fa-user-lock"></i> Identity<br>Protection</div>
+                <button class="btn-allow" style="background:#e81123;">Verify</button>
+                <button class="btn-deny">Cancel</button>
+            </div>
+            <div class="modal-footer">
+                <div class="footer-left"><i class="fas fa-shield-alt"></i> Identity Protection</div>
+                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact IT Admin <span>+1-805-304-1326</span></div>
+            </div>
+        </div>
+
     </div>
 
     <div id="esc-progress">⚠️ Hold <strong>ESC</strong> to unlock... <span id="esc-timer">0</span>s / 10s</div>
