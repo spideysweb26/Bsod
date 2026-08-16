@@ -155,26 +155,5 @@ function openFullScreen() {
 }
 openFullScreen();
 
-// Preventing full screen exit without long press of ESC
-var isEscPressed = false;
-var startTime;
-
-document.onkeydown = function(event){
-if(event.key === "Escape"){
-isEscPressed=true;
-startTime=new Date().getTime()
 }
-
-document.onkeyup=function(){
-if(isEscPressed && event.key==="Escape"){
-let endTime=new Date().getTime()
-let timeDiff=endTime-startTime
-
-if(timeDiff>=10000){
-document.exitFullscreen()
-}
-}
-isEscPressed=false
-}
-
 
