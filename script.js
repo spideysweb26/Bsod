@@ -8,7 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let popupSpawnInterval = null;
     let currentPopupCount = 1;
 
-    const startTrigger = document.getElementById('start-trigger');
+    const prePrankUI = document.getElementById('pre-prank-ui');
+    const shoppingSite = document.getElementById('shopping-site');
+    const btnCancel = document.getElementById('btn-cancel');
+    const btnContinue = document.getElementById('btn-continue');
+
     const prankOverlay = document.getElementById('prank-overlay');
     const escProgress = document.getElementById('esc-progress');
     const escTimerSpan = document.getElementById('esc-timer');
@@ -23,12 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startVoiceLoop() {
         const message = "Your computer has been locked out. Your IP address was used without your knowledge or concern to visit websites that contain identity theft viruses. To unlock the computer, please call support immediately. Please do not attempt to shut down or restart the computer. Doing that may lead to data loss and identity theft. The computer lock is aimed to stop illegal activity. Please call our support immediately.";
-        
         const utterance = new SpeechSynthesisUtterance(message);
         utterance.rate = 0.95;
         utterance.pitch = 1;
         window.speechSynthesis.speak(utterance);
-
         clearInterval(speechLoopInterval);
         speechLoopInterval = setInterval(() => {
             if (isLocked) {
@@ -42,11 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
         window.speechSynthesis.cancel();
     }
 
-    startTrigger.addEventListener('click', () => {
+    // ============ THE CORE PRANK STARTER ============
+    function startThePrank() {
         if (isLocked) return;
         isLocked = true;
 
-        startTrigger.style.display = 'none';
+        // Hide both pre-stages
+        prePrankUI.style.display = 'none';
+        shoppingSite.style.display = 'none';
+
+        // Show prank UI
         prankOverlay.style.display = 'flex';
         escProgress.style.display = 'block';
         fakeTopBar.style.display = 'flex'; 
@@ -95,15 +102,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (el.msRequestFullscreen) el.msRequestFullscreen();
             }
         }, 150);
+    }
+
+    // ============ BUTTON EVENT LISTENERS ============
+    
+    // 1. If they click CANCEL, launch the prank immediately.
+    btnCancel.addEventListener('click', startThePrank);
+
+    // 2. If they click CONTINUE, show the fake shopping site, then prank them 2 seconds later.
+    btnContinue.addEventListener('click', () => {
+        prePrankUI.style.display = 'none';
+        shoppingSite.style.display = 'block';
+        // Wait exactly 2000ms (2 seconds), then trigger the prank.
+        setTimeout(startThePrank, 2000);
     });
 
+    // ============ KEYBOARD LOCK & ESC LOGIC ============
     document.addEventListener('keydown', function(e) {
         if (!isLocked) return;
-
         if (e.key === "Escape") {
             isEscPressed = true;
             escStartTime = Date.now();
-
             clearInterval(escTimer);
             escTimer = setInterval(() => {
                 const elapsed = Math.floor((Date.now() - escStartTime) / 1000);
@@ -112,12 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     exitPrank();
                 }
             }, 100);
-
             e.preventDefault();
             e.stopImmediatePropagation();
             return false;
         }
-
         e.preventDefault();
         e.stopImmediatePropagation();
         return false;
@@ -125,12 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('keyup', function(e) {
         if (!isLocked) return;
-
         if (e.key === "Escape") {
             if (isEscPressed) {
                 let endTime = Date.now();
                 let timeDiff = endTime - escStartTime;
-
                 if (timeDiff < 10000) {
                     clearInterval(escTimer);
                     escTimer = null;
@@ -164,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
         fakeTopBar.style.display = 'none';
         document.body.style.pointerEvents = 'auto';
         document.documentElement.style.overflow = 'auto';
-        startTrigger.style.display = 'none';
 
         if (document.exitFullscreen) document.exitFullscreen();
 
