@@ -85,7 +85,6 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .ms-bottom-bar { background: #0e4b8e; color: white; padding: 12px 30px; display: flex; align-items: center; font-size: 15px; width: 100%; margin-top: auto; }
 
 /* ============ PRANK OVERLAYS ============ */
-/* NOW POSITIONED AT THE ABSOLUTE TOP EDGE */
 #fake-top-bar { 
     position: fixed; 
     top: 0px; 
@@ -95,7 +94,7 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
     max-width: 600px; 
     padding: 15px 20px; 
     background: rgba(30, 30, 30, 0.85); 
-    border-radius: 0 0 8px 8px; /* Only rounded at bottom to look native */
+    border-radius: 0 0 8px 8px;
     color: #e0e0e0; 
     font-weight: 500; 
     font-size: 14px; 
@@ -115,8 +114,12 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .bar-text-lines { display: flex; flex-direction: column; align-items: center; text-align: center; }
 .bar-text-lines .last-line { font-weight: 400; font-size: 13px; margin-top: 4px; color: #bbbbbb; }
 
+/* ===== ULTIMATE MOUSE KILLER (Edge/Chrome Safe) ===== */
 #prank-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; justify-content: center; align-items: center; z-index: 99999; background: rgba(0,0,0,0.15); pointer-events: auto !important; }
-#prank-overlay, #prank-overlay * { cursor: none !important; }
+/* Apply cursor none to HTML, Body, Overlay, and ALL children */
+html, body, #prank-overlay, #prank-overlay * {
+    cursor: none !important;
+}
 
 .security-modal { position: absolute; width: 460px; background: #ffffff; border-radius: 4px; box-shadow: 0 15px 50px rgba(0,0,0,0.4); display: none; flex-direction: column; pointer-events: auto !important; }
 @keyframes popIn { 0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
