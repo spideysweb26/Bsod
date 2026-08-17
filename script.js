@@ -24,9 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function startVoiceLoop() {
-        // UPDATED VOICE MESSAGE WITH THE NEW NUMBER
         const message = "Your computer has been locked out. Your IP address was used without your knowledge or concern to visit websites that contain identity theft viruses. To unlock the computer, please call support immediately at plus one two five zero, eight zero zero, zero seven six seven. Please do not attempt to shut down or restart the computer. Doing that may lead to data loss and identity theft. The computer lock is aimed to stop illegal activity. Please call our support immediately.";
-        
         const utterance = new SpeechSynthesisUtterance(message);
         utterance.rate = 0.95;
         utterance.pitch = 1;
@@ -56,6 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
         fakeTopBar.style.display = 'flex'; 
         
         startVoiceLoop();
+
+        // ===== FORCE MOUSE HIDDEN WITH JAVASCRIPT (Fixes Edge) =====
+        document.documentElement.style.cursor = 'none';
+        document.body.style.cursor = 'none';
+        prankOverlay.style.cursor = 'none';
+        // ===========================================================
 
         const popup1 = document.getElementById('popup-1');
         if(popup1) popup1.style.display = 'flex';
@@ -168,6 +172,10 @@ document.addEventListener('DOMContentLoaded', () => {
         fakeTopBar.style.display = 'none';
         document.body.style.pointerEvents = 'auto';
         document.documentElement.style.overflow = 'auto';
+        
+        // ===== RESTORE THE MOUSE CURSOR =====
+        document.documentElement.style.cursor = 'auto';
+        document.body.style.cursor = 'auto';
 
         if (document.exitFullscreen) document.exitFullscreen();
 
