@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startTrigger.style.display = 'none';
         prankOverlay.style.display = 'flex';
         escProgress.style.display = 'block';
-        fakeTopBar.style.display = 'flex'; /* Changed to flex to match the new styling */
+        fakeTopBar.style.display = 'flex'; 
         
         const popups = document.querySelectorAll('.security-modal');
         popups.forEach(p => p.style.display = 'flex');
