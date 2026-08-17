@@ -39,31 +39,29 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .trigger-box { background: white; padding: 30px 40px; border-radius: 8px; text-align: center; border: 2px solid #0078d4; box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
 .trigger-box i { color: #e81123; font-size: 40px; margin-bottom: 10px; }
 
-/* ===== TRANSPARENT, MULTI-LINE, TALL TOP BAR ===== */
+/* ===== 100% TRANSPARENT TOP BAR ===== */
 #fake-top-bar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     padding: 15px 20px;
-    background: rgba(26, 26, 26, 0.85); /* Semi-transparent black */
+    background: transparent !important; /* Completely see-through */
     color: #ff3333;
     font-weight: bold;
     font-size: 15px;
     z-index: 9999999;
     display: none;
     text-align: center;
-    border-bottom: 2px solid rgba(255, 0, 0, 0.5);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     font-family: 'Segoe UI', sans-serif;
-    backdrop-filter: blur(4px); /* Glassmorphism effect */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     line-height: 1.6;
-    min-height: 95px; /* Tall enough to hide the native browser's 'Press Esc' bar */
+    min-height: 90px; /* Pushes the website down so it covers the browser's native ESC message area */
+    text-shadow: 0 0 8px rgba(255, 0, 0, 0.6); /* Glow to ensure text is readable over white background */
 }
-#fake-top-bar i { color: #ff0000; font-size: 22px; }
+#fake-top-bar i { color: #ff0000; font-size: 22px; text-shadow: 0 0 8px rgba(255, 0, 0, 0.8); }
 
 .bar-content {
     display: flex;
@@ -84,13 +82,14 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
     font-size: 13px;
     margin-top: 4px;
     color: #ff6666;
+    text-shadow: 0 0 6px rgba(255, 0, 0, 0.4);
 }
 
 /* ===== PRANK OVERLAY & MOUSE KILLER ===== */
 #prank-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; justify-content: center; align-items: center; z-index: 99999; background: rgba(0,0,0,0.15); pointer-events: auto !important; }
 #prank-overlay, #prank-overlay * { cursor: none !important; }
 
-/* ===== MULTIPLE POPUPS STYLING ===== */
+/* ===== MULTIPLE POPUPS ===== */
 .security-modal {
     position: absolute;
     width: 620px;
