@@ -39,7 +39,7 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .shop-hero h1 { font-size: 42px; font-weight: 600; margin-bottom: 10px; }
 .shop-hero p { font-size: 18px; color: #555; }
 .shop-products {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 30px; max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 30px; max-width: 1100px; margin: 0 auto;
 }
 .product-card {
     background: white; border: 1px solid #e1e1e1; border-radius: 8px;
@@ -85,7 +85,31 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .ms-bottom-bar { background: #0e4b8e; color: white; padding: 12px 30px; display: flex; align-items: center; font-size: 15px; width: 100%; margin-top: auto; }
 
 /* ============ PRANK OVERLAYS ============ */
-#fake-top-bar { position: fixed; top: 70px; left: 50%; transform: translateX(-50%); width: auto; max-width: 600px; padding: 15px 20px; background: rgba(30, 30, 30, 0.85); border-radius: 8px; color: #e0e0e0; font-weight: 500; font-size: 14px; z-index: 9999999; display: none; text-align: center; font-family: 'Segoe UI', sans-serif; flex-direction: column; justify-content: center; align-items: center; line-height: 1.6; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+/* NOW POSITIONED AT THE ABSOLUTE TOP EDGE */
+#fake-top-bar { 
+    position: fixed; 
+    top: 0px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: auto; 
+    max-width: 600px; 
+    padding: 15px 20px; 
+    background: rgba(30, 30, 30, 0.85); 
+    border-radius: 0 0 8px 8px; /* Only rounded at bottom to look native */
+    color: #e0e0e0; 
+    font-weight: 500; 
+    font-size: 14px; 
+    z-index: 9999999; 
+    display: none; 
+    text-align: center; 
+    font-family: 'Segoe UI', sans-serif; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    line-height: 1.6; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+    border-bottom: 1px solid rgba(255,255,255,0.1); 
+}
 #fake-top-bar i { color: #ff6666; font-size: 18px; margin-right: 10px; }
 .bar-content { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
 .bar-text-lines { display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -128,6 +152,3 @@ html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f
 .footer-right { display: flex; align-items: center; gap: 6px; }
 .footer-right i { color: white; }
 .footer-right span { font-weight: 700; }
-
-#esc-progress { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); color: white; background: rgba(0,0,0,0.8); padding: 10px 24px; border-radius: 30px; font-size: 14px; display: none; z-index: 999999; pointer-events: none; font-weight: 500; }
-#esc-progress span { color: #ffba08; }
