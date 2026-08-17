@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let escTimer = null;
     let fullscreenWatchdog = null;
     let speechLoopInterval = null;
-    let popupSpawnInterval = null; // New variable for popup spawn timer
-    let currentPopupCount = 1; // Track how many popups have been spawned
+    let popupSpawnInterval = null;
+    let currentPopupCount = 1;
 
     const startTrigger = document.getElementById('start-trigger');
     const prankOverlay = document.getElementById('prank-overlay');
@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const escTimerSpan = document.getElementById('esc-timer');
     const fakeTopBar = document.getElementById('fake-top-bar');
 
-    // 1. BLOCK TAB CLOSING
     window.addEventListener('beforeunload', function(e) {
         if (isLocked) {
             e.preventDefault();
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. VOICE LOOP FUNCTION
     function startVoiceLoop() {
         const message = "Your computer has been locked out. Your IP address was used without your knowledge or concern to visit websites that contain identity theft viruses. To unlock the computer, please call support immediately. Please do not attempt to shut down or restart the computer. Doing that may lead to data loss and identity theft. The computer lock is aimed to stop illegal activity. Please call our support immediately.";
         
@@ -44,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.speechSynthesis.cancel();
     }
 
-    // 3. ACTIVATE PRANK
     startTrigger.addEventListener('click', () => {
         if (isLocked) return;
         isLocked = true;
@@ -54,14 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
         escProgress.style.display = 'block';
         fakeTopBar.style.display = 'flex'; 
         
-        // Start the scary voice!
         startVoiceLoop();
 
-        // Show the first popup immediately
         const popup1 = document.getElementById('popup-1');
         if(popup1) popup1.style.display = 'flex';
 
-        // Start spawning other popups every 4 seconds
         currentPopupCount = 1;
         clearInterval(popupSpawnInterval);
         popupSpawnInterval = setInterval(() => {
@@ -70,12 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (nextPopup) {
                 nextPopup.style.display = 'flex';
             }
-            // If we've spawned all 5 popups, stop the interval
             if (currentPopupCount >= 5) {
                 clearInterval(popupSpawnInterval);
                 popupSpawnInterval = null;
             }
-        }, 4000); // 4 seconds
+        }, 4000);
 
         document.body.style.pointerEvents = 'none';
         document.documentElement.style.overflow = 'hidden';
@@ -104,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 150);
     });
 
-    // 4. KEY DOWN LOGIC
     document.addEventListener('keydown', function(e) {
         if (!isLocked) return;
 
@@ -131,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }, true);
 
-    // 5. KEY UP LOGIC
     document.addEventListener('keyup', function(e) {
         if (!isLocked) return;
 
@@ -152,14 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
-    // 6. BLOCK RIGHT CLICK & SCROLL
     document.addEventListener('contextmenu', function(e) { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', function(e) { if (isLocked) e.preventDefault(); }, { passive: false });
 
-    // 7. EXIT PRANK
     function exitPrank() {
         stopVoiceLoop();
-        clearInterval(popupSpawnInterval); // Stop the 4-second popup timer
+        clearInterval(popupSpawnInterval);
         popupSpawnInterval = null;
         isLocked = false;
         isEscPressed = false;
