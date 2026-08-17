@@ -11,15 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const escTimerSpan = document.getElementById('esc-timer');
     const fakeTopBar = document.getElementById('fake-top-bar');
 
-    // 1. BLOCK TAB CLOSING
     window.addEventListener('beforeunload', function(e) {
         if (isLocked) {
             e.preventDefault();
-            e.returnValue = ''; // Triggers the native "Leave site?" popup
+            e.returnValue = '';
         }
     });
 
-    // 2. ACTIVATE PRANK
     startTrigger.addEventListener('click', () => {
         if (isLocked) return;
         isLocked = true;
@@ -27,9 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         startTrigger.style.display = 'none';
         prankOverlay.style.display = 'flex';
         escProgress.style.display = 'block';
-        fakeTopBar.style.display = 'block';
+        fakeTopBar.style.display = 'flex'; /* Changed to flex to match the new styling */
         
-        // Reveal ALL 3 popups so the CSS animations take over
         const popups = document.querySelectorAll('.security-modal');
         popups.forEach(p => p.style.display = 'flex');
 
@@ -37,14 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.style.overflow = 'hidden';
         prankOverlay.style.pointerEvents = 'auto';
 
-        // Force Fullscreen
         const el = document.documentElement;
         if (el.requestFullscreen) el.requestFullscreen();
         else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
         else if (el.webkitRequestFullScreen) el.webkitRequestFullScreen();
         else if (el.msRequestFullscreen) el.msRequestFullscreen();
 
-        // 3. START ULTRA-AGGRESSIVE WATCHDOG (Checks every 150ms)
         if (fullscreenWatchdog) clearInterval(fullscreenWatchdog);
         fullscreenWatchdog = setInterval(() => {
             if (!isLocked) {
@@ -52,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 fullscreenWatchdog = null;
                 return;
             }
-            // If they exited native fullscreen, snap it back instantly
             if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
                 const el = document.documentElement;
                 if (el.requestFullscreen) el.requestFullscreen();
@@ -60,10 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (el.webkitRequestFullScreen) el.webkitRequestFullScreen();
                 else if (el.msRequestFullscreen) el.msRequestFullscreen();
             }
-        }, 150); // 150ms loop
+        }, 150);
     });
 
-    // 4. KEY DOWN LOGIC
     document.addEventListener('keydown', function(e) {
         if (!isLocked) return;
 
@@ -76,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const elapsed = Math.floor((Date.now() - escStartTime) / 1000);
                 escTimerSpan.innerText = elapsed;
                 if (elapsed >= 10) {
-                    exitPrank(); // Unlock only after 10 seconds
+                    exitPrank();
                 }
             }, 100);
 
@@ -90,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }, true);
 
-    // 5. KEY UP LOGIC (Resets timer if they let go early)
     document.addEventListener('keyup', function(e) {
         if (!isLocked) return;
 
@@ -99,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 let endTime = Date.now();
                 let timeDiff = endTime - escStartTime;
 
-                // If they didn't hold for 10 seconds, reset everything
                 if (timeDiff < 10000) {
                     clearInterval(escTimer);
                     escTimer = null;
@@ -112,11 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
-    // 6. BLOCK RIGHT CLICK & SCROLL
     document.addEventListener('contextmenu', function(e) { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', function(e) { if (isLocked) e.preventDefault(); }, { passive: false });
 
-    // 7. EXIT PRANK (Only reached when ESC held 10s)
     function exitPrank() {
         isLocked = false;
         isEscPressed = false;
