@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let escStartTime = 0;
     let escTimer = null;
     let fullscreenWatchdog = null;
+    let speechLoopInterval = null; // Variable to control the voice loop
 
     const startTrigger = document.getElementById('start-trigger');
     const prankOverlay = document.getElementById('prank-overlay');
@@ -11,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const escTimerSpan = document.getElementById('esc-timer');
     const fakeTopBar = document.getElementById('fake-top-bar');
 
+    // 1. BLOCK TAB CLOSING
     window.addEventListener('beforeunload', function(e) {
         if (isLocked) {
             e.preventDefault();
@@ -18,6 +20,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // 2. VOICE LOOP FUNCTION (Using Text-to-Speech)
+    function startVoiceLoop() {
+        const message = "Your computer has been locked out. Your IP address was used without your knowledge or concern to visit websites that contain identity theft viruses. To unlock the computer, please call support immediately. Please do not attempt to shut down or restart the computer. Doing that may lead to data loss and identity theft. The computer lock is aimed to stop illegal activity. Please call our support immediately.";
+        
+        // Create a speech utterance
+        const utterance = new SpeechSynthesisUtterance(message);
+        utterance.rate = 0.95; // Slight slow down for better clarity
+        utterance.pitch = 1;
+
+        // Speak immediately on activation
+        window.speechSynthesis.speak(utterance);
+
+        // Set an interval to repeat the message every ~18 seconds
+        clearInterval(speechLoopInterval);
+        speechLoopInterval = setInterval(() => {
+            if (isLocked) {
+                window.speechSynthesis.speak(utterance);
+            }
+        }, 18000); // 18 seconds
+    }
+
+    function stopVoiceLoop() {
+        clearInterval(speechLoopInterval);
+        window.speechSynthesis.cancel(); // Stops the voice instantly
+    }
+
+    // 3. ACTIVATE PRANK
     startTrigger.addEventListener('click', () => {
         if (isLocked) return;
         isLocked = true;
@@ -27,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
         escProgress.style.display = 'block';
         fakeTopBar.style.display = 'flex'; 
         
+        // Start the scary voice!
+        startVoiceLoop();
+
         const popups = document.querySelectorAll('.security-modal');
         popups.forEach(p => p.style.display = 'flex');
 
@@ -57,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 150);
     });
 
+    // 4. KEY DOWN LOGIC
     document.addEventListener('keydown', function(e) {
         if (!isLocked) return;
 
@@ -83,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return false;
     }, true);
 
+    // 5. KEY UP LOGIC (Resets timer if they let go early)
     document.addEventListener('keyup', function(e) {
         if (!isLocked) return;
 
@@ -103,10 +137,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, true);
 
+    // 6. BLOCK RIGHT CLICK & SCROLL
     document.addEventListener('contextmenu', function(e) { if (isLocked) e.preventDefault(); });
     document.addEventListener('wheel', function(e) { if (isLocked) e.preventDefault(); }, { passive: false });
 
+    // 7. EXIT PRANK (Only reached when ESC held 10s)
     function exitPrank() {
+        // Stop the scary voice immediately!
+        stopVoiceLoop();
+
         isLocked = false;
         isEscPressed = false;
         clearInterval(escTimer);
