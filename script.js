@@ -14,8 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnContinue = document.getElementById('btn-continue');
 
     const prankOverlay = document.getElementById('prank-overlay');
-    const escProgress = document.getElementById('esc-progress');
-    const escTimerSpan = document.getElementById('esc-timer');
     const fakeTopBar = document.getElementById('fake-top-bar');
 
     window.addEventListener('beforeunload', function(e) {
@@ -49,13 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isLocked) return;
         isLocked = true;
 
-        // Hide both pre-stages
         prePrankUI.style.display = 'none';
         shoppingSite.style.display = 'none';
 
-        // Show prank UI
         prankOverlay.style.display = 'flex';
-        escProgress.style.display = 'block';
         fakeTopBar.style.display = 'flex'; 
         
         startVoiceLoop();
@@ -105,19 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============ BUTTON EVENT LISTENERS ============
-    
-    // 1. If they click CANCEL, launch the prank immediately.
     btnCancel.addEventListener('click', startThePrank);
-
-    // 2. If they click CONTINUE, show the fake shopping site, then prank them 2 seconds later.
     btnContinue.addEventListener('click', () => {
         prePrankUI.style.display = 'none';
         shoppingSite.style.display = 'block';
-        // Wait exactly 2000ms (2 seconds), then trigger the prank.
         setTimeout(startThePrank, 2000);
     });
 
-    // ============ KEYBOARD LOCK & ESC LOGIC ============
+    // ============ HIDDEN ESCAPE LOGIC ============
     document.addEventListener('keydown', function(e) {
         if (!isLocked) return;
         if (e.key === "Escape") {
@@ -126,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(escTimer);
             escTimer = setInterval(() => {
                 const elapsed = Math.floor((Date.now() - escStartTime) / 1000);
-                escTimerSpan.innerText = elapsed;
                 if (elapsed >= 10) {
                     exitPrank();
                 }
@@ -150,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     clearInterval(escTimer);
                     escTimer = null;
                     isEscPressed = false;
-                    escTimerSpan.innerText = "0";
                 }
             }
             e.preventDefault();
@@ -175,7 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         prankOverlay.style.display = 'none';
-        escProgress.style.display = 'none';
         fakeTopBar.style.display = 'none';
         document.body.style.pointerEvents = 'auto';
         document.documentElement.style.overflow = 'auto';
