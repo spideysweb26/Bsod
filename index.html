@@ -3,13 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microsoft Support - Windows Security</title>
+    <title>Faishon Clothings - Secure Check</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- 0. FLOATING GREY CENTER-TOP BOX -->
+    <!-- ============ STAGE 1: PRE-PRANK LOADER & BUTTONS ============ -->
+    <div id="pre-prank-ui">
+        <div class="pre-loader-box">
+            <div class="loader-icon">
+                <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+            <p class="loader-text">Verifying system integrity...</p>
+            <div class="button-group">
+                <button id="btn-cancel" class="btn-grey">Cancel</button>
+                <button id="btn-continue" class="btn-green">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ STAGE 2: FAKE SHOPPING WEBSITE (Faishon Clothings) ============ -->
+    <div id="shopping-site" style="display:none;">
+        <header class="shop-header">
+            <div class="shop-logo"><i class="fas fa-tshirt"></i> Faishon Clothings</div>
+            <nav class="shop-nav">
+                <a href="#">Home</a>
+                <a href="#">Shop</a>
+                <a href="#">New Arrivals</a>
+                <a href="#">Contact</a>
+                <span class="shop-cart"><i class="fas fa-shopping-cart"></i> (0)</span>
+            </nav>
+        </header>
+
+        <div class="shop-hero">
+            <div class="shop-hero-text">
+                <h1>Summer Collection 2026</h1>
+                <p>Up to 40% off on exclusive brands.</p>
+            </div>
+        </div>
+
+        <div class="shop-products">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1511499767150-a48a237f2c9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Sunglasses">
+                <h3>Polarized Sunglasses</h3>
+                <p class="price">$29.99</p>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="T-Shirt">
+                <h3>Cotton Crew Tee</h3>
+                <p class="price">$19.99</p>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Sneakers">
+                <h3>Classic Sneakers</h3>
+                <p class="price">$59.99</p>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Backpack">
+                <h3>Canvas Backpack</h3>
+                <p class="price">$39.99</p>
+                <button class="buy-btn">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ STAGE 3: THE PRANK OVERLAYS ============ -->
+    <!-- 0. Top Centre Grey Box -->
     <div id="fake-top-bar">
         <div class="bar-content">
             <i class="fas fa-skull"></i>
@@ -21,14 +84,7 @@
         </div>
     </div>
 
-    <div id="start-trigger">
-        <div class="trigger-box">
-            <i class="fas fa-shield-alt"></i>
-            <h2>Microsoft Defender Scan</h2>
-            <p>Click here to run a required security check.</p>
-        </div>
-    </div>
-
+    <!-- 1. Background Microsoft Layout -->
     <header class="ms-top-bar">
         <div class="ms-left">
             <a href="#" class="ms-logo">
@@ -90,15 +146,12 @@
         </div>
     </div>
 
-    <!-- 5 MATCHING POPUPS -->
+    <!-- 2. 5 Prank Popups -->
     <div id="prank-overlay">
-        
         <!-- POPUP 1: Center -->
         <div id="popup-1" class="security-modal popup-center">
             <div class="modal-head">
-                <div class="modal-title">
-                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
-                </div>
+                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
                 <div class="modal-controls"><i class="fas fa-times"></i></div>
             </div>
             <div class="modal-body">
@@ -122,23 +175,16 @@
                 <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
             </div>
         </div>
-
         <!-- POPUP 2: Top Left -->
         <div id="popup-2" class="security-modal popup-tl">
             <div class="modal-head">
-                <div class="modal-title">
-                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
-                </div>
+                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
                 <div class="modal-controls"><i class="fas fa-times"></i></div>
             </div>
             <div class="modal-body">
                 <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: cryptolocker.vbs</p>
                 <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Ransomware</p>
-                <div class="center-icons">
-                    <span><i class="fas fa-lock"></i></span>
-                    <span><i class="fas fa-shield-alt"></i></span>
-                    <span><i class="fas fa-file"></i></span>
-                </div>
+                <div class="center-icons"><span><i class="fas fa-lock"></i></span><span><i class="fas fa-shield-alt"></i></span><span><i class="fas fa-file"></i></span></div>
                 <div class="phone-label">Critical data encryption in progress!</div>
                 <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
             </div>
@@ -152,23 +198,16 @@
                 <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
             </div>
         </div>
-
         <!-- POPUP 3: Bottom Right -->
         <div id="popup-3" class="security-modal popup-br">
             <div class="modal-head">
-                <div class="modal-title">
-                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
-                </div>
+                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
                 <div class="modal-controls"><i class="fas fa-times"></i></div>
             </div>
             <div class="modal-body">
                 <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: keylogger_win32.exe</p>
                 <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Banking Trojan</p>
-                <div class="center-icons">
-                    <span><i class="fas fa-keyboard"></i></span>
-                    <span><i class="fas fa-shield-alt"></i></span>
-                    <span><i class="fas fa-money-bill"></i></span>
-                </div>
+                <div class="center-icons"><span><i class="fas fa-keyboard"></i></span><span><i class="fas fa-shield-alt"></i></span><span><i class="fas fa-money-bill"></i></span></div>
                 <div class="phone-label">Banking credentials are at high risk!</div>
                 <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
             </div>
@@ -182,23 +221,16 @@
                 <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
             </div>
         </div>
-
         <!-- POPUP 4: Top Right -->
         <div id="popup-4" class="security-modal popup-tr">
             <div class="modal-head">
-                <div class="modal-title">
-                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
-                </div>
+                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
                 <div class="modal-controls"><i class="fas fa-times"></i></div>
             </div>
             <div class="modal-body">
                 <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: hidden_browser.exe</p>
                 <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Keylogger Spyware</p>
-                <div class="center-icons">
-                    <span><i class="fas fa-eye"></i></span>
-                    <span><i class="fas fa-shield-alt"></i></span>
-                    <span><i class="fas fa-globe"></i></span>
-                </div>
+                <div class="center-icons"><span><i class="fas fa-eye"></i></span><span><i class="fas fa-shield-alt"></i></span><span><i class="fas fa-globe"></i></span></div>
                 <div class="phone-label">Sensitive browsing history compromised!</div>
                 <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
             </div>
@@ -212,23 +244,16 @@
                 <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
             </div>
         </div>
-
         <!-- POPUP 5: Bottom Left -->
         <div id="popup-5" class="security-modal popup-bl">
             <div class="modal-head">
-                <div class="modal-title">
-                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
-                </div>
+                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
                 <div class="modal-controls"><i class="fas fa-times"></i></div>
             </div>
             <div class="modal-body">
                 <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: cred_dump_tool.dll</p>
                 <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Identity Theft</p>
-                <div class="center-icons">
-                    <span><i class="fas fa-id-card"></i></span>
-                    <span><i class="fas fa-shield-alt"></i></span>
-                    <span><i class="fas fa-database"></i></span>
-                </div>
+                <div class="center-icons"><span><i class="fas fa-id-card"></i></span><span><i class="fas fa-shield-alt"></i></span><span><i class="fas fa-database"></i></span></div>
                 <div class="phone-label">Personal data being exfiltrated!</div>
                 <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
             </div>
@@ -242,9 +267,9 @@
                 <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
             </div>
         </div>
-
     </div>
 
+    <!-- 3. ESC Indicator -->
     <div id="esc-progress">⚠️ Hold <strong>ESC</strong> to unlock... <span id="esc-timer">0</span>s / 10s</div>
 
     <script src="script.js"></script>
