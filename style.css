@@ -1,306 +1,154 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faishon Clothings - Secure Check</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; background-color: #f2f2f2; }
 
-    <!-- ============ STAGE 1: PRE-PRANK LOADER & BUTTONS ============ -->
-    <div id="pre-prank-ui">
-        <div class="pre-loader-box">
-            <div class="loader-icon">
-                <i class="fas fa-circle-notch fa-spin"></i>
-            </div>
-            <p class="loader-text">Verifying system integrity...</p>
-            <div class="button-group">
-                <button id="btn-cancel" class="btn-grey">Cancel</button>
-                <button id="btn-continue" class="btn-green">Continue</button>
-            </div>
-        </div>
-    </div>
+/* ============ STAGE 1: PRE-PRANK LOADER ============ */
+#pre-prank-ui {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999999; background: white;
+}
+.pre-loader-box {
+    background: #fafafa; padding: 40px 50px; border-radius: 12px;
+    text-align: center; border: 1px solid #e1e1e1; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+.loader-icon { font-size: 48px; color: #0078d4; margin-bottom: 10px; }
+.loader-text { color: #555; font-weight: 500; margin-bottom: 25px; }
+.button-group { display: flex; gap: 15px; justify-content: center; }
+.btn-grey { background: #e1e1e1; color: #333; padding: 10px 40px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+.btn-grey:hover { background: #d1d1d1; }
+.btn-green { background: #28a745; color: white; padding: 10px 40px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+.btn-green:hover { background: #1e7e34; }
 
-    <!-- ============ STAGE 2: FAKE SHOPPING WEBSITE (Faishon Clothings) ============ -->
-    <div id="shopping-site" style="display:none;">
-        <header class="shop-header">
-            <div class="shop-logo"><i class="fas fa-tshirt"></i> Faishon Clothings</div>
-            <nav class="shop-nav">
-                <a href="#">Home</a>
-                <a href="#">Shop</a>
-                <a href="#">New Arrivals</a>
-                <a href="#">Contact</a>
-                <span class="shop-cart"><i class="fas fa-shopping-cart"></i> (0)</span>
-            </nav>
-        </header>
+/* ============ STAGE 2: FAKE SHOPPING WEBSITE ============ */
+#shopping-site {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #ffffff; z-index: 9999998; overflow-y: auto;
+}
+.shop-header {
+    background: #1a1a1a; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top:0; z-index: 10;
+}
+.shop-logo { font-size: 20px; font-weight: bold; }
+.shop-logo i { color: #f2c811; margin-right: 8px; }
+.shop-nav a { color: #e0e0e0; text-decoration: none; margin: 0 15px; font-size: 14px; }
+.shop-nav a:hover { color: white; }
+.shop-cart { color: #e0e0e0; margin-left: 15px; font-weight: 500; }
+.shop-hero {
+    background: linear-gradient(135deg, #fce3d2 0%, #f8d4c0 100%); padding: 60px 20px;
+    text-align: center; color: #333;
+}
+.shop-hero h1 { font-size: 42px; font-weight: 600; margin-bottom: 10px; }
+.shop-hero p { font-size: 18px; color: #555; }
+.shop-products {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 30px; max-width: 1100px; margin: 0 auto;
+}
+.product-card {
+    background: white; border: 1px solid #e1e1e1; border-radius: 8px;
+    padding: 15px; text-align: center; transition: transform 0.2s;
+}
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
+.product-card h3 { font-size: 16px; color: #333; margin: 10px 0 5px; }
+.product-card .price { font-weight: bold; color: #0078d4; margin-bottom: 10px; }
+.buy-btn { background: #f2c811; border: none; padding: 8px 20px; border-radius: 4px; font-weight: 600; cursor: pointer; width: 100%; }
+.buy-btn:hover { background: #e0b700; }
 
-        <div class="shop-hero">
-            <div class="shop-hero-text">
-                <h1>Summer Collection 2026</h1>
-                <p>Up to 40% off on exclusive brands.</p>
-            </div>
-        </div>
+/* ============ MICROSOFT BACKGROUND LAYOUT ============ */
+.ms-top-bar { background: #ffffff; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; height: 54px; border-bottom: 1px solid #e1e1e1; }
+.ms-left, .ms-right { display: flex; align-items: center; gap: 20px; }
+.ms-logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; color: #737373; text-decoration: none; }
+.ms-logo svg { width: 20px; height: 20px; }
+.ms-logo span { color: #0078d4; }
+.ms-support-text { color: #333; font-weight: 500; font-size: 14px; }
+.ms-nav a { color: #616161; text-decoration: none; font-size: 13px; font-weight: 500; padding: 4px 8px; }
+.ms-buy-btn { border: 1px solid #ccc; padding: 5px 12px; border-radius: 4px; color: #0078d4 !important; }
+.ms-all { color: #555; font-size: 13px; text-decoration: none; }
+.user-icon { color: #555; font-size: 20px; }
+.ms-right i { color: #555; }
+.ms-main-wrap { display: flex; height: calc(100vh - 54px); }
+.ms-sidebar { width: 240px; background: #f3f2f1; padding: 20px; border-right: 1px solid #e1e1e1; display: flex; flex-direction: column; }
+.ms-sidebar-img { height: 180px; margin-bottom: 20px; border-radius: 4px; background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80'); background-size: cover; background-position: center; position: relative; }
+.ms-get-started { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: #0078d4; color: white; padding: 8px 16px; border-radius: 4px; border: none; font-weight: 600; font-size: 13px; }
+.ms-sidebar h3 { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.ms-sidebar p { font-size: 12px; color: #666; margin: 5px 0 15px 0; }
+.ms-sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; color: #333; font-size: 13px; }
+.ms-sidebar-item i { font-size: 20px; width: 24px; text-align: center; color: #0078d4; }
+.ms-content-wrapper { display: flex; flex-direction: column; flex: 1; }
+.ms-content { padding: 30px 40px; flex: 1; }
+.ms-content h2 { font-size: 26px; font-weight: 300; color: #1a1a1a; display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.ms-content h2 i { color: #0078d4; }
+.ms-content-window { background: white; border: 1px solid #d2d2d2; border-radius: 4px; padding-bottom: 40px; position: relative; }
+.ms-content-winhead { background: #003862; color: white; padding: 8px 16px; font-weight: 600; font-size: 14px; border-radius: 4px 4px 0 0; }
+.ms-content-winbody { padding: 20px; color: #333; display: flex; align-items: flex-start; gap: 20px; }
+.content-shield { color: #0078d4; font-size: 40px; }
+.scan-text { font-size: 14px; line-height: 1.5; margin-bottom: 15px; }
+.fake-bottom-bar { background: #0e4b8e; color: white; padding: 12px 20px; border-radius: 4px; display: inline-block; width: 100%; text-align: center;}
+.ms-bottom-bar { background: #0e4b8e; color: white; padding: 12px 30px; display: flex; align-items: center; font-size: 15px; width: 100%; margin-top: auto; }
 
-        <div class="shop-products">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1511499767150-a48a237f2c9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Sunglasses">
-                <h3>Polarized Sunglasses</h3>
-                <p class="price">$29.99</p>
-                <button class="buy-btn">Add to Cart</button>
-            </div>
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="T-Shirt">
-                <h3>Cotton Crew Tee</h3>
-                <p class="price">$19.99</p>
-                <button class="buy-btn">Add to Cart</button>
-            </div>
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Sneakers">
-                <h3>Classic Sneakers</h3>
-                <p class="price">$59.99</p>
-                <button class="buy-btn">Add to Cart</button>
-            </div>
-            <!-- Product 4 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Backpack">
-                <h3>Canvas Backpack</h3>
-                <p class="price">$39.99</p>
-                <button class="buy-btn">Add to Cart</button>
-            </div>
-            <!-- Product 5 (New) -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Watch">
-                <h3>Luxury Chronograph</h3>
-                <p class="price">$89.99</p>
-                <button class="buy-btn">Add to Cart</button>
-            </div>
-            <!-- Product 6 (New) -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1542272617-08f01d2917b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Jeans">
-                <h3>Slim Fit Jeans</h3>
-                <p class="price">$49.99</p>
-                <button class="buy-btn">Add to Cart</button>
-            </div>
-            <!-- Product 7 (New) -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Hat">
-                <h3>Stylish Bucket Hat</h3>
-                <p class="price">$24.99</p>
-                <button class="buy-btn">Add to Cart</button>
-            </div>
-            <!-- Product 8 (New) -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Handbag">
-                <h3>Leather Handbag</h3>
-                <p class="price">$79.99</p>
-                <button class="buy-btn">Add to Cart</button>
-            </div>
-        </div>
-    </div>
+/* ============ PRANK OVERLAYS ============ */
+/* NOW POSITIONED AT THE ABSOLUTE TOP EDGE */
+#fake-top-bar { 
+    position: fixed; 
+    top: 0px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: auto; 
+    max-width: 600px; 
+    padding: 15px 20px; 
+    background: rgba(30, 30, 30, 0.85); 
+    border-radius: 0 0 8px 8px; /* Only rounded at bottom to look native */
+    color: #e0e0e0; 
+    font-weight: 500; 
+    font-size: 14px; 
+    z-index: 9999999; 
+    display: none; 
+    text-align: center; 
+    font-family: 'Segoe UI', sans-serif; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    line-height: 1.6; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+    border-bottom: 1px solid rgba(255,255,255,0.1); 
+}
+#fake-top-bar i { color: #ff6666; font-size: 18px; margin-right: 10px; }
+.bar-content { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.bar-text-lines { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.bar-text-lines .last-line { font-weight: 400; font-size: 13px; margin-top: 4px; color: #bbbbbb; }
 
-    <!-- ============ STAGE 3: THE PRANK OVERLAYS ============ -->
-    <!-- 0. Top Centre Grey Box (Now completely at the top edge) -->
-    <div id="fake-top-bar">
-        <div class="bar-content">
-            <i class="fas fa-skull"></i>
-            <div class="bar-text-lines">
-                <div>Your computer has been locked out!</div>
-                <div>Your IP address was used without your knowledge.</div>
-                <div class="last-line">To unlock, please call support immediately. Do not restart.</div>
-            </div>
-        </div>
-    </div>
+#prank-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; display: none; justify-content: center; align-items: center; z-index: 99999; background: rgba(0,0,0,0.15); pointer-events: auto !important; }
+#prank-overlay, #prank-overlay * { cursor: none !important; }
 
-    <!-- 1. Background Microsoft Layout -->
-    <header class="ms-top-bar">
-        <div class="ms-left">
-            <a href="#" class="ms-logo">
-                <svg viewBox="0 0 23 23"><path fill="#f35325" d="M1 1h10v10H1z"/><path fill="#81bc06" d="M12 1h10v10H12z"/><path fill="#05a6f0" d="M1 12h10v10H1z"/><path fill="#ffba08" d="M12 12h10v10H12z"/></svg>
-                <span>Microsoft</span>
-            </a>
-            <span class="ms-support-text">Support</span>
-            <nav class="ms-nav">
-                <a href="#">Microsoft 365</a> <a href="#">Office</a> <a href="#">Windows</a> <a href="#">Surface</a>
-                <a href="#">Xbox</a> <a href="#">Deals</a>
-                <a href="#" class="ms-buy-btn">Buy Microsoft 365</a>
-            </nav>
-        </div>
-        <div class="ms-right">
-            <a href="#" class="ms-all">All Microsoft <i class="fas fa-chevron-down"></i></a>
-            <i class="fas fa-search"></i> 
-            <i class="fas fa-user-circle user-icon"></i>
-        </div>
-    </header>
+.security-modal { position: absolute; width: 460px; background: #ffffff; border-radius: 4px; box-shadow: 0 15px 50px rgba(0,0,0,0.4); display: none; flex-direction: column; pointer-events: auto !important; }
+@keyframes popIn { 0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
 
-    <div class="ms-main-wrap">
-        <div class="ms-sidebar">
-            <div class="ms-sidebar-img">
-                <button class="ms-get-started">Get started</button>
-            </div>
-            <h3>Select the product you</h3>
-            <p>We'll show you self-help options</p>
-            <div class="ms-sidebar-item"><i class="fab fa-microsoft"></i> Microsoft 365</div>
-            <div class="ms-sidebar-item" style="font-size:11px; color:#777; margin-top:-5px;">Hide expanded list of products</div>
-            <div class="ms-sidebar-item"><i class="fas fa-database"></i> Access</div>
-            <div class="ms-sidebar-item"><i class="fas fa-users"></i> Teams</div>
-        </div>
+.popup-center { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s forwards, pulseCenter 3s ease-in-out 0.2s infinite; }
+@keyframes pulseCenter { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
+.popup-tl { top: 25%; left: 20%; transform: translate(-50%, -50%) scale(0.8); animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s forwards, pulseTL 3s ease-in-out 0.2s infinite; }
+@keyframes pulseTL { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
+.popup-br { top: 70%; left: 75%; transform: translate(-50%, -50%) scale(0.8); animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s forwards, pulseBR 3s ease-in-out 0.2s infinite; }
+@keyframes pulseBR { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
+.popup-tr { top: 25%; left: 75%; transform: translate(-50%, -50%) scale(0.8); animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s forwards, pulseTR 3s ease-in-out 0.2s infinite; }
+@keyframes pulseTR { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
+.popup-bl { top: 70%; left: 20%; transform: translate(-50%, -50%) scale(0.8); animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s forwards, pulseBL 3s ease-in-out 0.2s infinite; }
+@keyframes pulseBL { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.02); } }
 
-        <div class="ms-content-wrapper">
-            <div class="ms-content">
-                <h2><i class="fab fa-windows"></i> Windows security</h2>
-                <div class="ms-content-window">
-                    <div class="ms-content-winhead">Windows-Defender</div>
-                    <div class="ms-content-winbody">
-                        <i class="fas fa-shield-alt content-shield"></i>
-                        <div>
-                            <p class="scan-text" style="font-size: 13px; line-height: 1.4;">Your computer has alerted us that it has been infected with a Trojan Spyware. The following data has been compromised:</p>
-                            <ul style="font-size: 13px; margin-left: 20px; color: #333; line-height: 1.6;">
-                                <li>Email Credentials</li>
-                                <li>Banking Passwords</li>
-                                <li>Facebook Login</li>
-                                <li>Pictures & Documents</li>
-                            </ul>
-                            <div class="fake-bottom-bar" style="margin-top: 15px;">
-                                <span>Windows Please call Support: <i class="fas fa-phone-alt"></i> +1-250-800-0767</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ms-bottom-bar" style="background: #0078d4;">
-                <i class="fab fa-windows"></i> Windows security &nbsp;&nbsp; Contact Support <i class="fas fa-phone-alt"></i> +1-250-800-0767 <span>(Toll-Free)</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2. 5 Prank Popups -->
-    <div id="prank-overlay">
-        <!-- POPUP 1: Center -->
-        <div id="popup-1" class="security-modal popup-center">
-            <div class="modal-head">
-                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
-                <div class="modal-controls"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="modal-body">
-                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: Ads.fiancetrack(2).dll</p>
-                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Trojan Spyware</p>
-                <div class="center-icons">
-                    <span><i class="fas fa-bug"></i></span>
-                    <span><i class="fas fa-shield-alt"></i></span>
-                    <span><i class="fas fa-user"></i></span>
-                </div>
-                <div class="phone-label">Access to this PC has been blocked for security reasons.</div>
-                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-250-800-0767 (Toll-Free)</div>
-            </div>
-            <div class="modal-actions">
-                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
-                <button class="btn-deny">Deny</button>
-                <button class="btn-allow" onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin\'></i> Scanning...'">Allow</button>
-            </div>
-            <div class="modal-footer">
-                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
-                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-250-800-0767</span></div>
-            </div>
-        </div>
-        <!-- POPUP 2: Top Left -->
-        <div id="popup-2" class="security-modal popup-tl">
-            <div class="modal-head">
-                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
-                <div class="modal-controls"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="modal-body">
-                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: cryptolocker.vbs</p>
-                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Ransomware</p>
-                <div class="center-icons"><span><i class="fas fa-lock"></i></span><span><i class="fas fa-shield-alt"></i></span><span><i class="fas fa-file"></i></span></div>
-                <div class="phone-label">Critical data encryption in progress!</div>
-                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-250-800-0767 (Toll-Free)</div>
-            </div>
-            <div class="modal-actions">
-                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
-                <button class="btn-deny">Deny</button>
-                <button class="btn-allow" style="background:#e81123; border:1px solid #e81123;">Block</button>
-            </div>
-            <div class="modal-footer">
-                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
-                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-250-800-0767</span></div>
-            </div>
-        </div>
-        <!-- POPUP 3: Bottom Right -->
-        <div id="popup-3" class="security-modal popup-br">
-            <div class="modal-head">
-                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
-                <div class="modal-controls"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="modal-body">
-                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: keylogger_win32.exe</p>
-                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Banking Trojan</p>
-                <div class="center-icons"><span><i class="fas fa-keyboard"></i></span><span><i class="fas fa-shield-alt"></i></span><span><i class="fas fa-money-bill"></i></span></div>
-                <div class="phone-label">Banking credentials are at high risk!</div>
-                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-250-800-0767 (Toll-Free)</div>
-            </div>
-            <div class="modal-actions">
-                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
-                <button class="btn-deny">Deny</button>
-                <button class="btn-allow" style="background:#e81123; border:1px solid #e81123;">Stop</button>
-            </div>
-            <div class="modal-footer">
-                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
-                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-250-800-0767</span></div>
-            </div>
-        </div>
-        <!-- POPUP 4: Top Right -->
-        <div id="popup-4" class="security-modal popup-tr">
-            <div class="modal-head">
-                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
-                <div class="modal-controls"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="modal-body">
-                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: hidden_browser.exe</p>
-                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Keylogger Spyware</p>
-                <div class="center-icons"><span><i class="fas fa-eye"></i></span><span><i class="fas fa-shield-alt"></i></span><span><i class="fas fa-globe"></i></span></div>
-                <div class="phone-label">Sensitive browsing history compromised!</div>
-                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-250-800-0767 (Toll-Free)</div>
-            </div>
-            <div class="modal-actions">
-                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
-                <button class="btn-deny">Deny</button>
-                <button class="btn-allow">Allow</button>
-            </div>
-            <div class="modal-footer">
-                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
-                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-250-800-0767</span></div>
-            </div>
-        </div>
-        <!-- POPUP 5: Bottom Left -->
-        <div id="popup-5" class="security-modal popup-bl">
-            <div class="modal-head">
-                <div class="modal-title"><i class="fas fa-shield-alt"></i> Windows Defender Security Center</div>
-                <div class="modal-controls"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="modal-body">
-                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: cred_dump_tool.dll</p>
-                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Identity Theft</p>
-                <div class="center-icons"><span><i class="fas fa-id-card"></i></span><span><i class="fas fa-shield-alt"></i></span><span><i class="fas fa-database"></i></span></div>
-                <div class="phone-label">Personal data being exfiltrated!</div>
-                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-250-800-0767 (Toll-Free)</div>
-            </div>
-            <div class="modal-actions">
-                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
-                <button class="btn-deny">Deny</button>
-                <button class="btn-allow" style="background:#e81123; border:1px solid #e81123;">Protect</button>
-            </div>
-            <div class="modal-footer">
-                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
-                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-250-800-0767</span></div>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+.modal-head { background: #f5f5f5; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e1e1e1; border-radius: 4px 4px 0 0; }
+.modal-title { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: #1a1a1a; }
+.modal-title i { font-size: 20px; color: #333; }
+.modal-controls i { color: #555; margin-left: 12px; font-size: 14px; }
+.modal-body { padding: 15px 20px 5px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.center-icons { margin: 5px 0 15px 0; display: flex; gap: 40px; font-size: 28px; }
+.center-icons span { padding: 10px; border-radius: 4px; border: 2px solid #333; background: #f0f0f0; color:#333; }
+.phone-label { font-size: 14px; font-weight: 600; color: #1a1a1a; margin: 5px 0 5px 0; }
+.modal-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; padding: 5px 20px 15px 20px; border-top: 1px solid #e1e1e1; margin-top: 10px; }
+.btn-wrap { display: flex; align-items: center; gap: 6px; margin-right: auto; color: #333; font-size: 11px; font-weight: 600; }
+.btn-wrap i { font-size: 18px; color: #0078d4; }
+.modal-actions button { padding: 8px 24px; border-radius: 2px; font-size: 14px; font-weight: 600; border: 1px solid #333; background: white; }
+.btn-allow { background: #0078d4; color: white; border: 1px solid #0078d4 !important; }
+.btn-deny { background: white; color: #333; border: 1px solid #333; }
+.modal-footer { background: #0078d4; color: white; padding: 8px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; border-radius: 0 0 4px 4px;}
+.footer-left { display: flex; align-items: center; gap: 8px; }
+.footer-left i { font-size: 16px; }
+.footer-right { display: flex; align-items: center; gap: 6px; }
+.footer-right i { color: white; }
+.footer-right span { font-weight: 700; }
