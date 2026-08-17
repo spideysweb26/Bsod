@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let escTimer = null;
     let fullscreenWatchdog = null;
     let speechLoopInterval = null;
+    let popupSpawnInterval = null; // New variable for popup spawn timer
+    let currentPopupCount = 1; // Track how many popups have been spawned
 
     const startTrigger = document.getElementById('start-trigger');
     const prankOverlay = document.getElementById('prank-overlay');
@@ -55,8 +57,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Start the scary voice!
         startVoiceLoop();
 
-        const popups = document.querySelectorAll('.security-modal');
-        popups.forEach(p => p.style.display = 'flex');
+        // Show the first popup immediately
+        const popup1 = document.getElementById('popup-1');
+        if(popup1) popup1.style.display = 'flex';
+
+        // Start spawning other popups every 4 seconds
+        currentPopupCount = 1;
+        clearInterval(popupSpawnInterval);
+        popupSpawnInterval = setInterval(() => {
+            currentPopupCount++;
+            const nextPopup = document.getElementById(`popup-${currentPopupCount}`);
+            if (nextPopup) {
+                nextPopup.style.display = 'flex';
+            }
+            // If we've spawned all 5 popups, stop the interval
+            if (currentPopupCount >= 5) {
+                clearInterval(popupSpawnInterval);
+                popupSpawnInterval = null;
+            }
+        }, 4000); // 4 seconds
 
         document.body.style.pointerEvents = 'none';
         document.documentElement.style.overflow = 'hidden';
@@ -140,6 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. EXIT PRANK
     function exitPrank() {
         stopVoiceLoop();
+        clearInterval(popupSpawnInterval); // Stop the 4-second popup timer
+        popupSpawnInterval = null;
         isLocked = false;
         isEscPressed = false;
         clearInterval(escTimer);
