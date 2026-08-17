@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <!-- 0. GREY BLENDING TOP BAR (Matches browser's ESC bar) -->
+    <!-- 0. GREY BLENDING TOP BAR -->
     <div id="fake-top-bar">
         <div class="bar-content">
             <i class="fas fa-skull"></i>
@@ -90,44 +90,159 @@
         </div>
     </div>
 
-    <!-- 3. NEW POPUP MATCHING YOUR SCREENSHOT -->
+    <!-- 5 MATCHING POPUPS (1 Main, 4 Added, Spreading out visually) -->
     <div id="prank-overlay">
-        <div class="security-modal popup-center">
-            <div class="modal-head" style="background:#f5f5f5; border-bottom:none;">
-                <div class="modal-title" style="font-size: 15px; color:#333;">
+        
+        <!-- POPUP 1: Center (Original Screenshot) -->
+        <div id="popup-1" class="security-modal popup-center">
+            <div class="modal-head">
+                <div class="modal-title">
                     <i class="fas fa-shield-alt"></i> Windows Defender Security Center
                 </div>
-                <div class="modal-controls">
-                    <i class="fas fa-times"></i>
-                </div>
+                <div class="modal-controls"><i class="fas fa-times"></i></div>
             </div>
-            <div class="modal-body" style="padding: 15px 20px 5px 20px;">
+            <div class="modal-body">
                 <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: Ads.fiancetrack(2).dll</p>
                 <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Trojan Spyware</p>
-                
-                <div class="center-icons" style="gap: 40px; margin: 5px 0 15px 0;">
-                    <span style="border: 2px solid #333; padding: 10px; border-radius: 4px; color: #333; font-size: 28px;"><i class="fas fa-bug"></i></span>
-                    <span style="border: 2px solid #333; padding: 10px; border-radius: 4px; color: #333; font-size: 28px;"><i class="fas fa-shield-alt"></i></span>
-                    <span style="border: 2px solid #333; padding: 10px; border-radius: 4px; color: #333; font-size: 28px;"><i class="fas fa-user"></i></span>
+                <div class="center-icons">
+                    <span><i class="fas fa-bug"></i></span>
+                    <span><i class="fas fa-shield-alt"></i></span>
+                    <span><i class="fas fa-user"></i></span>
                 </div>
-
-                <div class="phone-label" style="font-weight: 600; font-size: 14px; color:#333;">Access to this PC has been blocked for security reasons.</div>
-                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: <span style="font-size: 15px;">+1-866-914-0330</span> (Toll-Free)</div>
+                <div class="phone-label">Access to this PC has been blocked for security reasons.</div>
+                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
             </div>
-            
-            <div class="modal-actions" style="padding: 5px 20px 15px 20px; gap: 10px; border-top: 1px solid #e1e1e1; margin-top: 10px;">
-                <div class="btn-wrap" style="font-size: 11px; color: #333; gap: 6px;">
-                    <i class="fab fa-windows" style="color:#0078d4; font-size: 18px;"></i> Windows
-                </div>
-                <button class="btn-deny" style="padding: 6px 20px; border: 1px solid #333;">Deny</button>
-                <button class="btn-allow" style="background: #0078d4; padding: 6px 20px;" onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin\'></i> Scanning...'">Allow</button>
+            <div class="modal-actions">
+                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
+                <button class="btn-deny">Deny</button>
+                <button class="btn-allow" onclick="this.innerHTML='<i class=\'fas fa-spinner fa-spin\'></i> Scanning...'">Allow</button>
             </div>
-            
-            <div class="modal-footer" style="background: #0078d4; padding: 8px 20px; border-radius: 0 0 4px 4px;">
+            <div class="modal-footer">
                 <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
-                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span> (Toll-Free)</div>
+                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
             </div>
         </div>
+
+        <!-- POPUP 2: Top Left (Appears at 4s) -->
+        <div id="popup-2" class="security-modal popup-tl">
+            <div class="modal-head">
+                <div class="modal-title">
+                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
+                </div>
+                <div class="modal-controls"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: cryptolocker.vbs</p>
+                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Ransomware</p>
+                <div class="center-icons">
+                    <span><i class="fas fa-lock"></i></span>
+                    <span><i class="fas fa-shield-alt"></i></span>
+                    <span><i class="fas fa-file"></i></span>
+                </div>
+                <div class="phone-label">Critical data encryption in progress!</div>
+                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
+            </div>
+            <div class="modal-actions">
+                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
+                <button class="btn-deny">Deny</button>
+                <button class="btn-allow" style="background:#e81123; border:1px solid #e81123;">Block</button>
+            </div>
+            <div class="modal-footer">
+                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
+                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
+            </div>
+        </div>
+
+        <!-- POPUP 3: Bottom Right (Appears at 8s) -->
+        <div id="popup-3" class="security-modal popup-br">
+            <div class="modal-head">
+                <div class="modal-title">
+                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
+                </div>
+                <div class="modal-controls"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: keylogger_win32.exe</p>
+                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Banking Trojan</p>
+                <div class="center-icons">
+                    <span><i class="fas fa-keyboard"></i></span>
+                    <span><i class="fas fa-shield-alt"></i></span>
+                    <span><i class="fas fa-money-bill"></i></span>
+                </div>
+                <div class="phone-label">Banking credentials are at high risk!</div>
+                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
+            </div>
+            <div class="modal-actions">
+                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
+                <button class="btn-deny">Deny</button>
+                <button class="btn-allow" style="background:#e81123; border:1px solid #e81123;">Stop</button>
+            </div>
+            <div class="modal-footer">
+                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
+                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
+            </div>
+        </div>
+
+        <!-- POPUP 4: Top Right (Appears at 12s) -->
+        <div id="popup-4" class="security-modal popup-tr">
+            <div class="modal-head">
+                <div class="modal-title">
+                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
+                </div>
+                <div class="modal-controls"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: hidden_browser.exe</p>
+                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Keylogger Spyware</p>
+                <div class="center-icons">
+                    <span><i class="fas fa-eye"></i></span>
+                    <span><i class="fas fa-shield-alt"></i></span>
+                    <span><i class="fas fa-globe"></i></span>
+                </div>
+                <div class="phone-label">Sensitive browsing history compromised!</div>
+                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
+            </div>
+            <div class="modal-actions">
+                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
+                <button class="btn-deny">Deny</button>
+                <button class="btn-allow">Allow</button>
+            </div>
+            <div class="modal-footer">
+                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
+                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
+            </div>
+        </div>
+
+        <!-- POPUP 5: Bottom Left (Appears at 16s) -->
+        <div id="popup-5" class="security-modal popup-bl">
+            <div class="modal-head">
+                <div class="modal-title">
+                    <i class="fas fa-shield-alt"></i> Windows Defender Security Center
+                </div>
+                <div class="modal-controls"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 13px; margin-bottom: 5px; color: #e81123;">App: cred_dump_tool.dll</p>
+                <p style="font-size: 13px; margin-bottom: 10px; color: #e81123; font-weight:600;">Threat Detected: Identity Theft</p>
+                <div class="center-icons">
+                    <span><i class="fas fa-id-card"></i></span>
+                    <span><i class="fas fa-shield-alt"></i></span>
+                    <span><i class="fas fa-database"></i></span>
+                </div>
+                <div class="phone-label">Personal data being exfiltrated!</div>
+                <div class="phone-label" style="font-size: 13px; font-weight: 600; color: #0078d4;">Contact Windows Support: +1-866-914-0330 (Toll-Free)</div>
+            </div>
+            <div class="modal-actions">
+                <div class="btn-wrap"><i class="fab fa-windows"></i> Windows</div>
+                <button class="btn-deny">Deny</button>
+                <button class="btn-allow" style="background:#e81123; border:1px solid #e81123;">Protect</button>
+            </div>
+            <div class="modal-footer">
+                <div class="footer-left"><i class="fab fa-windows"></i> Windows Security</div>
+                <div class="footer-right"><i class="fas fa-phone-alt"></i> Contact Support <span>+1-866-914-0330</span></div>
+            </div>
+        </div>
+
     </div>
 
     <div id="esc-progress">⚠️ Hold <strong>ESC</strong> to unlock... <span id="esc-timer">0</span>s / 10s</div>
